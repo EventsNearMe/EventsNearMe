@@ -76,7 +76,7 @@ Gather all types of events from Eventbrite in the local area. Users can search f
 [Add picture of your hand sketched wireframes in this section]
 
 <img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/EventsNearMe.gif" width=300>
-<img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/hand-sketched-wireframes.jpg" width=600>
+<img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/hand-sketched-wireframes.jpg" width=300>
 <img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/sketched-wireframes-1.jpg" width=300>
 <img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/sketched-wireframes-2.jpg" width=300>
 <img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/sketched-wireframes-3.jpg" width=300>
