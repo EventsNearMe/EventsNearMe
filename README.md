@@ -84,10 +84,49 @@ Gather all types of events from Eventbrite in the local area. Users can search f
 
 
 ## Schema 
-[This section will be completed in Unit 9]
+
 ### Models
-[Add table of models]
+
+Event
+
+| Property     | Type                 | Description                                                                  |
+| --------     | --------             | --------                                                                     |
+| name         | multipart-text       | Event name.                                                                  |
+| event_id     | string               | Event ID of the Attendee's Event.                                            |
+| created      | datetime             | Attendee creation date and time (i.e. when order was placed).                |
+| summary      | string               | (Optional) Event summary. Short summary describing the event and its purpose.|
+| start        | datetime-tz          | Event start date and time.                                                   |
+| end          | datetime-tz          | Event end date and time.                                                     |
+| status       | string               | Event status. Can be draft, live, started, ended, completed and canceled.    |
+| likesCount   | Number               | number of likes for the post                                                 |
+| user         | Pointer to User      | image author                                                                 |
+| comment      | Pointer to Comment   | comments                                                                     |
+
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+* Events Screen (tableView)
+
+   * (Read/GET) Query all events
+  
+    ```
+    let query = PFQuery(className:"Event")
+    query.whereKey("user", equalTo: currentUser)
+    query.order(byDescending: "createdAt")
+    query.findObjectsInBackground { (events: [PFObject]?, error: Error?) in
+       if let error = error { 
+          print(error.localizedDescription)
+       } else if let events = events {
+          print("Successfully retrieved \(events.count) events.")
+      // TODO: Do something with events...
+       }
+    }
+    ```
+    * (Delete) Delete existing like
+    * (Create/COMMENT) Create a new comment on an event
+
+* Events Screen (calendarView)
+   * (Read/GET) Query all events
+   
+* Events Detail Screen
+   * (Delete) Delete existing like
+   * (Create/COMMENT) Create a new comment on an event
