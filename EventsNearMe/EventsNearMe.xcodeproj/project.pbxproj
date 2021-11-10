@@ -16,6 +16,7 @@
 		26FCAB5B27348E0500C9D623 /* EventsNearMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAB5A27348E0500C9D623 /* EventsNearMeTests.swift */; };
 		26FCAB6527348E0500C9D623 /* EventsNearMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAB6427348E0500C9D623 /* EventsNearMeUITests.swift */; };
 		26FCAB6727348E0500C9D623 /* EventsNearMeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAB6627348E0500C9D623 /* EventsNearMeUITestsLaunchTests.swift */; };
+		59112888273B4394008D2354 /* EventsAPICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59112887273B4394008D2354 /* EventsAPICaller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		26FCAB6027348E0500C9D623 /* EventsNearMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EventsNearMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26FCAB6427348E0500C9D623 /* EventsNearMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsNearMeUITests.swift; sourceTree = "<group>"; };
 		26FCAB6627348E0500C9D623 /* EventsNearMeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsNearMeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		59112887273B4394008D2354 /* EventsAPICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAPICaller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				26FCAB4C27348E0400C9D623 /* Assets.xcassets */,
 				26FCAB4E27348E0400C9D623 /* LaunchScreen.storyboard */,
 				26FCAB5127348E0400C9D623 /* Info.plist */,
+				59112887273B4394008D2354 /* EventsAPICaller.swift */,
 			);
 			path = EventsNearMe;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			files = (
 				26FCAB4827348E0100C9D623 /* ViewController.swift in Sources */,
 				26FCAB4427348E0100C9D623 /* AppDelegate.swift in Sources */,
+				59112888273B4394008D2354 /* EventsAPICaller.swift in Sources */,
 				26FCAB4627348E0100C9D623 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
