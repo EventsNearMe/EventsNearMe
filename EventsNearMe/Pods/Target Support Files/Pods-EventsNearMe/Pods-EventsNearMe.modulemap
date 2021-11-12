@@ -1,0 +1,6 @@
+framework module Pods_EventsNearMe {
+  umbrella header "Pods-EventsNearMe-umbrella.h"
+
+  export *
+  module * { export * }
+}

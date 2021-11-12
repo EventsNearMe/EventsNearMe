@@ -17,6 +17,14 @@
 		26FCAB6527348E0500C9D623 /* EventsNearMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAB6427348E0500C9D623 /* EventsNearMeUITests.swift */; };
 		26FCAB6727348E0500C9D623 /* EventsNearMeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAB6627348E0500C9D623 /* EventsNearMeUITestsLaunchTests.swift */; };
 		59112888273B4394008D2354 /* EventsAPICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59112887273B4394008D2354 /* EventsAPICaller.swift */; };
+		5911288C273F259A008D2354 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5911288B273F259A008D2354 /* LoginViewController.swift */; };
+		5911288E273F286A008D2354 /* AllEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5911288D273F286A008D2354 /* AllEventsTableViewController.swift */; };
+		59112890273F2A56008D2354 /* CalendarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5911288F273F2A56008D2354 /* CalendarCollectionViewController.swift */; };
+		59112894273F2B12008D2354 /* CalendarEventsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59112893273F2B12008D2354 /* CalendarEventsDetailsViewController.swift */; };
+		59112896273F2B83008D2354 /* AllEventsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59112895273F2B83008D2354 /* AllEventsDetailsViewController.swift */; };
+		5F1EA71786D91F6ACB60E34A /* Pods_EventsNearMe_EventsNearMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023931B6CB7862FA8E3DCD08 /* Pods_EventsNearMe_EventsNearMeUITests.framework */; };
+		6B6F04054ECE41DE18FD92B5 /* Pods_EventsNearMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 053FCFE5783947DD1FF99735 /* Pods_EventsNearMeTests.framework */; };
+		6E3BCB0B6B4E86646A5C9BD1 /* Pods_EventsNearMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75B1D6E0EA268B1742D72697 /* Pods_EventsNearMe.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		023931B6CB7862FA8E3DCD08 /* Pods_EventsNearMe_EventsNearMeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsNearMe_EventsNearMeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		053FCFE5783947DD1FF99735 /* Pods_EventsNearMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsNearMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26FCAB4027348E0100C9D623 /* EventsNearMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventsNearMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26FCAB4327348E0100C9D623 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26FCAB4527348E0100C9D623 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,7 +60,19 @@
 		26FCAB6027348E0500C9D623 /* EventsNearMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EventsNearMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26FCAB6427348E0500C9D623 /* EventsNearMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsNearMeUITests.swift; sourceTree = "<group>"; };
 		26FCAB6627348E0500C9D623 /* EventsNearMeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsNearMeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		326781F887697B98903918BC /* Pods-EventsNearMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsNearMeTests.debug.xcconfig"; path = "Target Support Files/Pods-EventsNearMeTests/Pods-EventsNearMeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		53B5ED092242EFC43C89380F /* Pods-EventsNearMe-EventsNearMeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsNearMe-EventsNearMeUITests.release.xcconfig"; path = "Target Support Files/Pods-EventsNearMe-EventsNearMeUITests/Pods-EventsNearMe-EventsNearMeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		59112887273B4394008D2354 /* EventsAPICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAPICaller.swift; sourceTree = "<group>"; };
+		5911288B273F259A008D2354 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5911288D273F286A008D2354 /* AllEventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEventsTableViewController.swift; sourceTree = "<group>"; };
+		5911288F273F2A56008D2354 /* CalendarCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewController.swift; sourceTree = "<group>"; };
+		59112893273F2B12008D2354 /* CalendarEventsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventsDetailsViewController.swift; sourceTree = "<group>"; };
+		59112895273F2B83008D2354 /* AllEventsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEventsDetailsViewController.swift; sourceTree = "<group>"; };
+		5D90742EDDA313AAA4CD5AAA /* Pods-EventsNearMe-EventsNearMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsNearMe-EventsNearMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-EventsNearMe-EventsNearMeUITests/Pods-EventsNearMe-EventsNearMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		726F2DDB645CFB1E53D463B6 /* Pods-EventsNearMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsNearMe.release.xcconfig"; path = "Target Support Files/Pods-EventsNearMe/Pods-EventsNearMe.release.xcconfig"; sourceTree = "<group>"; };
+		75B1D6E0EA268B1742D72697 /* Pods_EventsNearMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsNearMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		83017C6E5A6101D1093F0DAF /* Pods-EventsNearMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsNearMeTests.release.xcconfig"; path = "Target Support Files/Pods-EventsNearMeTests/Pods-EventsNearMeTests.release.xcconfig"; sourceTree = "<group>"; };
+		8DE54C02437AFD5D73F2C3AE /* Pods-EventsNearMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsNearMe.debug.xcconfig"; path = "Target Support Files/Pods-EventsNearMe/Pods-EventsNearMe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E3BCB0B6B4E86646A5C9BD1 /* Pods_EventsNearMe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B6F04054ECE41DE18FD92B5 /* Pods_EventsNearMeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F1EA71786D91F6ACB60E34A /* Pods_EventsNearMe_EventsNearMeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +110,8 @@
 				26FCAB5927348E0500C9D623 /* EventsNearMeTests */,
 				26FCAB6327348E0500C9D623 /* EventsNearMeUITests */,
 				26FCAB4127348E0100C9D623 /* Products */,
+				7F53423F6A4BEB978CD829AF /* Pods */,
+				AF5E6D5ACEEAAE53E2ED234D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,11 +131,16 @@
 				26FCAB4327348E0100C9D623 /* AppDelegate.swift */,
 				26FCAB4527348E0100C9D623 /* SceneDelegate.swift */,
 				26FCAB4727348E0100C9D623 /* ViewController.swift */,
+				5911288B273F259A008D2354 /* LoginViewController.swift */,
 				26FCAB4927348E0100C9D623 /* Main.storyboard */,
 				26FCAB4C27348E0400C9D623 /* Assets.xcassets */,
 				26FCAB4E27348E0400C9D623 /* LaunchScreen.storyboard */,
 				26FCAB5127348E0400C9D623 /* Info.plist */,
 				59112887273B4394008D2354 /* EventsAPICaller.swift */,
+				5911288D273F286A008D2354 /* AllEventsTableViewController.swift */,
+				5911288F273F2A56008D2354 /* CalendarCollectionViewController.swift */,
+				59112893273F2B12008D2354 /* CalendarEventsDetailsViewController.swift */,
+				59112895273F2B83008D2354 /* AllEventsDetailsViewController.swift */,
 			);
 			path = EventsNearMe;
 			sourceTree = "<group>";
@@ -130,6 +162,30 @@
 			path = EventsNearMeUITests;
 			sourceTree = "<group>";
 		};
+		7F53423F6A4BEB978CD829AF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8DE54C02437AFD5D73F2C3AE /* Pods-EventsNearMe.debug.xcconfig */,
+				726F2DDB645CFB1E53D463B6 /* Pods-EventsNearMe.release.xcconfig */,
+				5D90742EDDA313AAA4CD5AAA /* Pods-EventsNearMe-EventsNearMeUITests.debug.xcconfig */,
+				53B5ED092242EFC43C89380F /* Pods-EventsNearMe-EventsNearMeUITests.release.xcconfig */,
+				326781F887697B98903918BC /* Pods-EventsNearMeTests.debug.xcconfig */,
+				83017C6E5A6101D1093F0DAF /* Pods-EventsNearMeTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		AF5E6D5ACEEAAE53E2ED234D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				75B1D6E0EA268B1742D72697 /* Pods_EventsNearMe.framework */,
+				023931B6CB7862FA8E3DCD08 /* Pods_EventsNearMe_EventsNearMeUITests.framework */,
+				053FCFE5783947DD1FF99735 /* Pods_EventsNearMeTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,9 +193,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 26FCAB6A27348E0500C9D623 /* Build configuration list for PBXNativeTarget "EventsNearMe" */;
 			buildPhases = (
+				E3CC7CC92422E515F2B27E63 /* [CP] Check Pods Manifest.lock */,
 				26FCAB3C27348E0100C9D623 /* Sources */,
 				26FCAB3D27348E0100C9D623 /* Frameworks */,
 				26FCAB3E27348E0100C9D623 /* Resources */,
+				D8028E32CA81494F72A8EFD5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -154,6 +212,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 26FCAB6D27348E0500C9D623 /* Build configuration list for PBXNativeTarget "EventsNearMeTests" */;
 			buildPhases = (
+				B381C0831B69FF1E42B4C7E4 /* [CP] Check Pods Manifest.lock */,
 				26FCAB5227348E0500C9D623 /* Sources */,
 				26FCAB5327348E0500C9D623 /* Frameworks */,
 				26FCAB5427348E0500C9D623 /* Resources */,
@@ -172,9 +231,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 26FCAB7027348E0500C9D623 /* Build configuration list for PBXNativeTarget "EventsNearMeUITests" */;
 			buildPhases = (
+				19F30A29F8672C4387A666A0 /* [CP] Check Pods Manifest.lock */,
 				26FCAB5C27348E0500C9D623 /* Sources */,
 				26FCAB5D27348E0500C9D623 /* Frameworks */,
 				26FCAB5E27348E0500C9D623 /* Resources */,
+				CDEFE791C2D03DFDB8A9728E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -256,14 +317,122 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		19F30A29F8672C4387A666A0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EventsNearMe-EventsNearMeUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B381C0831B69FF1E42B4C7E4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EventsNearMeTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CDEFE791C2D03DFDB8A9728E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EventsNearMe-EventsNearMeUITests/Pods-EventsNearMe-EventsNearMeUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EventsNearMe-EventsNearMeUITests/Pods-EventsNearMe-EventsNearMeUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EventsNearMe-EventsNearMeUITests/Pods-EventsNearMe-EventsNearMeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8028E32CA81494F72A8EFD5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EventsNearMe/Pods-EventsNearMe-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EventsNearMe/Pods-EventsNearMe-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EventsNearMe/Pods-EventsNearMe-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3CC7CC92422E515F2B27E63 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EventsNearMe-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		26FCAB3C27348E0100C9D623 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59112890273F2A56008D2354 /* CalendarCollectionViewController.swift in Sources */,
 				26FCAB4827348E0100C9D623 /* ViewController.swift in Sources */,
 				26FCAB4427348E0100C9D623 /* AppDelegate.swift in Sources */,
+				5911288E273F286A008D2354 /* AllEventsTableViewController.swift in Sources */,
 				59112888273B4394008D2354 /* EventsAPICaller.swift in Sources */,
+				59112896273F2B83008D2354 /* AllEventsDetailsViewController.swift in Sources */,
+				59112894273F2B12008D2354 /* CalendarEventsDetailsViewController.swift in Sources */,
+				5911288C273F259A008D2354 /* LoginViewController.swift in Sources */,
 				26FCAB4627348E0100C9D623 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,6 +607,7 @@
 		};
 		26FCAB6B27348E0500C9D623 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DE54C02437AFD5D73F2C3AE /* Pods-EventsNearMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -465,6 +635,7 @@
 		};
 		26FCAB6C27348E0500C9D623 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 726F2DDB645CFB1E53D463B6 /* Pods-EventsNearMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -492,6 +663,7 @@
 		};
 		26FCAB6E27348E0500C9D623 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 326781F887697B98903918BC /* Pods-EventsNearMeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -516,6 +688,7 @@
 		};
 		26FCAB6F27348E0500C9D623 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 83017C6E5A6101D1093F0DAF /* Pods-EventsNearMeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -540,6 +713,7 @@
 		};
 		26FCAB7127348E0500C9D623 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D90742EDDA313AAA4CD5AAA /* Pods-EventsNearMe-EventsNearMeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -562,6 +736,7 @@
 		};
 		26FCAB7227348E0500C9D623 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53B5ED092242EFC43C89380F /* Pods-EventsNearMe-EventsNearMeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
