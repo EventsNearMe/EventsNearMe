@@ -22,7 +22,7 @@ class ViewController: UIViewController {
                 return
             }
             self.events = events;
-            print(events[0]["name"])
+            print(events)
         }
     }
 
