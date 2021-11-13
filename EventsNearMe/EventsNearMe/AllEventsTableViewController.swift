@@ -8,8 +8,9 @@
 import UIKit
 import Parse
 
-class AllEventsTableViewController: UIViewController {
-
+class AllEventsTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+ 
+    @IBOutlet weak var tableView: UITableView!
     @IBAction func onLogout(_ sender: Any) {
     
         PFUser.logOut()
@@ -22,6 +23,9 @@ class AllEventsTableViewController: UIViewController {
                                                                                                            
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.dataSource = self
+        tableView.delegate = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -30,7 +34,18 @@ class AllEventsTableViewController: UIViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    // MARK: - Table view data source
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        
+        cell.textLabel?.text = "row: \(indexPath.row)"
+
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 50
+    }
+    
 
 //    override func numberOfSections(in tableView: UITableView) -> Int {
 //        // #warning Incomplete implementation, return the number of sections
