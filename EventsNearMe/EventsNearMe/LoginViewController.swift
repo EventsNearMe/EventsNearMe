@@ -8,7 +8,7 @@
 import UIKit
 import Parse
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController{
 
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -17,11 +17,15 @@ class LoginViewController: UIViewController {
         let password = passwordField.text!
         
         PFUser.logInWithUsername(inBackground: username, password: password) { (user, error) in
-            if user != nil {
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
-            } else {
-                print("Error: \(String(describing: error?.localizedDescription))")
-            }
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+            
+//            if user != nil {
+//                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+//            } else {
+//                print("Error: \(String(describing: error?.localizedDescription))")
+//            }
         }
     }
     
