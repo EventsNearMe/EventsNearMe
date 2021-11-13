@@ -128,6 +128,7 @@
                                         <connections>
                                             <outlet property="eventLabel" destination="DbY-Sw-kGh" id="JsR-13-bLa"/>
                                             <outlet property="posterView" destination="Edm-iv-AHz" id="Nt7-fx-5Y0"/>
+                                            <segue destination="dB6-Mp-MEe" kind="show" id="yiI-qK-maK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -167,10 +168,11 @@
                         <viewLayoutGuide key="safeArea" id="H3c-G4-bnE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="U6l-Cy-K6B"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g0r-uO-P2j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-132" y="1471"/>
+            <point key="canvasLocation" x="83" y="1466"/>
         </scene>
         <!--Calendar Events Details View Controller-->
         <scene sceneID="5pw-2i-OCV">
@@ -201,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLS-IJ-TtN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1797.1014492753625" y="776.78571428571422"/>
+            <point key="canvasLocation" x="1309" y="773"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="HtC-Sa-HTe">
