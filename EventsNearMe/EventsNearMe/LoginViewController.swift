@@ -51,8 +51,22 @@ class LoginViewController: UIViewController{
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setupToolbar()
     }
     
+    func setupToolbar() {
+        let bar = UIToolbar()
+        let doneBotton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(dismissKeyboard))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.items = [flexSpace, flexSpace, doneBotton]
+        bar.sizeToFit()
+        usernameField.inputAccessoryView = bar
+        passwordField.inputAccessoryView = bar
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 
     /*
     // MARK: - Navigation
