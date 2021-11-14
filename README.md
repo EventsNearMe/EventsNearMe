@@ -140,4 +140,4 @@ Event
 
 ### Walkthrough GIF - Milestone 10
 
-<img src="ezgif.com-gif-maker.gif" width=800><br>
+<img src="ezgif.com-gif-maker.gif" width=250><br>
