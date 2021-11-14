@@ -9,10 +9,17 @@ import UIKit
 
 class AllEventsDetailsViewController: UIViewController {
 
+    @IBOutlet weak var eventNameLabel: UILabel!
+    @IBOutlet weak var eventImage: UIImageView!
+    
+    var event: [String:Any]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        eventNameLabel.text = event["name"] as? String
+        eventNameLabel.sizeToFit()
     }
     
 

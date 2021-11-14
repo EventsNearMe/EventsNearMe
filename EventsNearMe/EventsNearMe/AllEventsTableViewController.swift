@@ -57,14 +57,23 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
         }
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        print("Loading")
+        // Find the selected event
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let event = events[indexPath.row]
+        
+        // Pass the selected event to the details view controller
+        let detailsViewController = segue.destination as! AllEventsDetailsViewController
+        detailsViewController.event = event
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    */
 
 }
