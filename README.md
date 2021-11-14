@@ -130,3 +130,14 @@ Event
 * Events Detail Screen
    * (Delete) Delete existing like
    * (Create/COMMENT) Create a new comment on an event
+
+### Milestone 10 build progress
+
+### User Stories
+- [x] User can sign up, login and logout
+- [x] App retains user information after app is closed and re-opened
+- [x] User can toggle between the AllEvents Tab and the Calendar Tab
+
+### Walkthrough GIF - Milestone 10
+
+<img src="ezgif.com-gif-maker.gif" width=800><br>
