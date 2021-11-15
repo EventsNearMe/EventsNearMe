@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class AllEventsDetailsViewController: UIViewController {
 
@@ -15,8 +16,13 @@ class AllEventsDetailsViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var venueLabel: UILabel!
     @IBAction func getTiket(_ sender: Any) {
-        
-//        openURL(URL(string: "https:??www.google.com")!)
+        //update link here
+        guard let url = URL(string: "https://www.google.com") else {
+             return
+         }
+        if UIApplication.shared.canOpenURL(url) {
+             UIApplication.shared.open(url, options: [:], completionHandler: nil)
+         }
     }
     
     var event: [String:Any]!
@@ -29,12 +35,6 @@ class AllEventsDetailsViewController: UIViewController {
         eventNameLabel.sizeToFit()
         
     }
-    
-//    func getTicketLink () {
-//        Link("Visit Apple", destination: URL(string: "https://www.apple.com")!)
-//            .font(.title)
-//            .foregroundColor(.red)
-//    }
 
     /*
     // MARK: - Navigation
