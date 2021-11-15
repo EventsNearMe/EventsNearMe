@@ -10,7 +10,14 @@ import UIKit
 class AllEventsDetailsViewController: UIViewController {
 
     @IBOutlet weak var eventNameLabel: UILabel!
-    @IBOutlet weak var eventImage: UIImageView!
+    @IBOutlet weak var lineUpImage1: UIImageView!
+    @IBOutlet weak var lineUpImage2: UIImageView!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var venueLabel: UILabel!
+    @IBAction func getTiket(_ sender: Any) {
+        
+//        openURL(URL(string: "https:??www.google.com")!)
+    }
     
     var event: [String:Any]!
     
@@ -20,8 +27,14 @@ class AllEventsDetailsViewController: UIViewController {
         // Do any additional setup after loading the view.
         eventNameLabel.text = event["name"] as? String
         eventNameLabel.sizeToFit()
+        
     }
     
+//    func getTicketLink () {
+//        Link("Visit Apple", destination: URL(string: "https://www.apple.com")!)
+//            .font(.title)
+//            .foregroundColor(.red)
+//    }
 
     /*
     // MARK: - Navigation
