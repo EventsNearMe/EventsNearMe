@@ -8,8 +8,9 @@
 import UIKit
 import Parse
 import MessageInputBar
+import Alamofire
 
-class AllEventsDetailsViewController: UIViewController, MessageInputBarDelegate {
+class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var eventNameLabel: UILabel!
     @IBOutlet weak var lineUpImage1: UIImageView!
@@ -17,8 +18,8 @@ class AllEventsDetailsViewController: UIViewController, MessageInputBarDelegate 
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var venueLabel: UILabel!
     @IBAction func getTiket(_ sender: Any) {
-        //update link here
-        guard let url = URL(string: "https://www.google.com") else {
+        
+        guard let url = URL(string: event["url"] as! String) else {
              return
          }
         if UIApplication.shared.canOpenURL(url) {
@@ -26,64 +27,60 @@ class AllEventsDetailsViewController: UIViewController, MessageInputBarDelegate 
          }
     }
     
+    @IBOutlet weak var tableView: UITableView!
     var event: [String:Any]!
-    let commentBar = MessageInputBar()
-    var showsCommentBar = false
-    
-    var events = [PFObject]()
     var selectedEvent: PFObject!
     
-    @IBAction func commentButtom(_ sender: Any) {
-        print("Click here to display comments")
+    @IBAction func commentBotton(_ sender: Any) {
+        print("click here to display comments")
     }
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        eventNameLabel.text = event["name"] as? String
+        eventNameLabel.text = (event["name"] as! String)
         eventNameLabel.sizeToFit()
         
-        
-        
-        commentBar.inputTextView.placeholder = "Leave a comment..."
-        commentBar.delegate = self
-//        let center = NotificationCenter.default
-//        center.addObserver(self, selector: #selector(keyboardWillBeHidden(note:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-//        setupToolbar()
-        
+        tableView.delegate = self
+        tableView.dataSource = self
+
     }
     
-    override var inputAccessoryView: UIView? {
-        return commentBar
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let comments = selectedEvent["Comments"] as? [PFObject]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
+    
+//        let comment = comments![indexPath.row]
+//        cell.commentLabel.text = comment["text"] as? String
+//        let user = comment["user"] as! PFUser
+//        cell.userNameLabel.text = user.username
+    
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //return comments.count
+        return 1
     }
     
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    
-    func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-        // Create the comment
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let event = PFObject(className: "Events")
-        
+       
         event["user"] = PFUser.current()!
         event.saveInBackground {(success, error) in
             if success {
-                            self.dismiss(animated: true, completion: nil)
-                            print("Event saved!")
-                        } else {
-                            print("Error saving the event!")
-                        }
+                self.dismiss(animated: true, completion: nil)
+                print("Event saved!")
+            } else {
+                print("Error saving the event!")
+            }
         }
         
         let comment = PFObject(className: "Comments")
-        comment["text"] = "commentBar.inputTextView.text"
-
-        selectedEvent = event
-        comment["event"] = selectedEvent
-        comment["author"] = PFUser.current()!
+        comment["text"] = "This is a random comment"
+        comment["event"] = event
+        comment["user"] = PFUser.current()!
 
         event.add(comment, forKey: "Comments")
 
@@ -95,41 +92,6 @@ class AllEventsDetailsViewController: UIViewController, MessageInputBarDelegate 
             }
         }
         
-        // Clear and dismiss the input bar
-        commentBar.inputTextView.text = nil
-
-        showsCommentBar = false
-        becomeFirstResponder()
-        commentBar.inputTextView.resignFirstResponder()
+//        selectedEvent = event
     }
-    
-//    @objc func keyboardWillBeHidden(note: Notification) {
-//        commentBar.inputTextView.text = nil
-//        showsCommentBar = false
-//        becomeFirstResponder()
-//    }
-
-//    func setupToolbar() {
-//        let bar = UIToolbar()
-//        let doneBotton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(dismissKeyboard))
-//        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-//        bar.items = [flexSpace, flexSpace, doneBotton]
-//        bar.sizeToFit()
-//        commentField.inputAccessoryView = bar
-//        commentField.inputAccessoryView = bar
-//    }
-//
-//    @objc func dismissKeyboard() {
-//        view.endEditing(true)
-//    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
