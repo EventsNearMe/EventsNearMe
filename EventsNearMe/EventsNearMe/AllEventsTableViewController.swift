@@ -22,7 +22,6 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     var events = [[String:Any]]()
-    var venues = [[String: Any]]()
                                                                                                            
     override func viewDidLoad() {
         super.viewDidLoad()
