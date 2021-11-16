@@ -22,6 +22,7 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     var events = [[String:Any]]()
+    var venues = [[String: Any]]()
                                                                                                            
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +38,22 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventCell
         
         let event = events[indexPath.row]
+        let dates = event["dates"] as! [String: Any]
+        let start = dates["start"] as! [String: Any]
+        let localDate = start["localDate"] as! String
+        let embedded = event["_embedded"] as! [String: Any]
+        let venues = embedded["venues"] as! [[String:Any]]
+        let venues2 = venues[0]
+        let city = venues2["city"] as! [String: Any]
+        let cityName = city["name"] as! String
+        let state = venues2["state"] as! [String: Any]
+        let stateCode = state["stateCode"] as! String
         let name = event["name"] as! String
         cell.eventLabel.text = name
+        cell.datetimeLabel.text = localDate
+        cell.locationLabel.text = cityName
+        cell.stateLabel.text = stateCode
+        
 
         return cell
     }
