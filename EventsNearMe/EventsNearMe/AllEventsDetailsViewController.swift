@@ -26,7 +26,7 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
              UIApplication.shared.open(url, options: [:], completionHandler: nil)
          }
     }
-    
+    let myRefreshControl = UIRefreshControl()
     @IBOutlet weak var tableView: UITableView!
     var event: [String:Any]!
     var selectedEvent: PFObject!
@@ -44,18 +44,20 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         
         tableView.delegate = self
         tableView.dataSource = self
-
+        myRefreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
+        self.tableView.refreshControl = myRefreshControl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let comments = selectedEvent["Comments"] as? [PFObject]
+//        let comments = (selectedEvent["Comments"])
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
-    
-//        let comment = comments![indexPath.row]
-//        cell.commentLabel.text = comment["text"] as? String
-//        let user = comment["user"] as! PFUser
-//        cell.userNameLabel.text = user.username
-    
+        
+//        if comments != nil {
+//            let comment = " "
+//            cell.commentLabel.text = comment["text"] as? String
+//            let user = comment["user"] as! PFUser
+//            cell.userNameLabel.text = user.username
+//        }
         return cell
     }
 
@@ -91,7 +93,26 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
                 print("Error saving comment")
             }
         }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
+        cell.commentLabel.text = comment["text"] as? String
+        let user = comment["user"] as! PFUser
+        cell.userNameLabel.text = user.username
         
-//        selectedEvent = event
+        selectedEvent = event
+    }
+    
+    @objc func onRefresh() {
+        refresh()
+    }
+    
+    func run(after wait: TimeInterval, closure: @escaping () -> Void) {
+        let queue = DispatchQueue.main
+        queue.asyncAfter(deadline: DispatchTime.now() + wait, execute: closure)
+    }
+    
+    func refresh() {
+        run(after: 2) {
+           self.myRefreshControl.endRefreshing()
+        }
     }
 }
