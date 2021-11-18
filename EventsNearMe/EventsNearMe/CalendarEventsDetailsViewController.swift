@@ -8,10 +8,10 @@
 import UIKit
 
 class CalendarEventsDetailsViewController: UIViewController {
-
+    var event: [String: Any]!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(event)
         // Do any additional setup after loading the view.
     }
     

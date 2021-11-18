@@ -25,6 +25,27 @@ class EventsAPICaller{
                 
                 let embedded = dataDictionary["_embedded"] as! [String: Any]
                 let events = embedded["events"] as! [[String:Any]]
+                print(events)
+                return completion(events)
+            }
+        }
+        task.resume()
+    }
+    func getEventsByStateCode(StateCode: String, completion: @escaping ([[String:Any]]?) -> Void){
+        let url = URL(string: "https://app.ticketmaster.com/discovery/v2/events?apikey=3UJFG9ApE8TRi0TlE17F5jAQZL9q6OYS&stateCode=\(StateCode)")!
+        print(url)
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 10)
+        
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
+        let task = session.dataTask(with: request){ (data, response, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else if let data = data {
+                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                
+                let embedded = dataDictionary["_embedded"] as! [String: Any]
+                let events = embedded["events"] as! [[String:Any]]
+                //print(events)
                 return completion(events)
             }
         }
