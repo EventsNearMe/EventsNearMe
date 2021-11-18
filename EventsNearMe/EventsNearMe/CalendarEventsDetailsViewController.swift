@@ -9,8 +9,13 @@ import UIKit
 
 class CalendarEventsDetailsViewController: UIViewController {
     var event: [String: Any]!
+    @IBOutlet weak var testLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let dates = event["dates"] as! [String:Any]
+        let start = dates["start"] as! [String:Any]
+        
+        testLabel.text = start["localDate"] as! String
         print(event)
         // Do any additional setup after loading the view.
     }

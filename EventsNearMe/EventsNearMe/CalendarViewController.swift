@@ -6,37 +6,64 @@
 //
 
 import UIKit
-
-class buttonWithID: UIButton{
-    var event: [String:Any]?
-}
+import Parse
 
 class CalendarViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var weekdayStackView: UIStackView!
     @IBOutlet weak var collectionView: UICollectionView!
+
+    @IBAction func onPrevMonth(_ sender: Any) {
+        self.selectedDate = self.calendar.date(byAdding: .month, value: -1, to: self.selectedDate) ?? self.selectedDate
+        days = generateDaysInMonth(for: selectedDate)
+        setCollectionViewLayout()
+        collectionView.reloadData()
+    }
+    @IBAction func onNextMonth(_ sender: Any) {
+        self.selectedDate = self.calendar.date(byAdding: .month, value: 1, to: self.selectedDate) ?? self.selectedDate
+        days = generateDaysInMonth(for: selectedDate)
+        setCollectionViewLayout()
+        collectionView.reloadData()
+    }
     var events = [[String:Any]]()
     var eventsDate = [String:[[String:Any]]]()
     let calendar = Calendar(identifier: .gregorian)
-    let selectedDate: Date = Date()
+    var selectedDate: Date = Date()
+    
+    private lazy var monthFormatter: DateFormatter = {
+      let dateFormatter = DateFormatter()
+      dateFormatter.calendar = Calendar(identifier: .gregorian)
+      dateFormatter.locale = Locale.autoupdatingCurrent
+      dateFormatter.setLocalizedDateFormatFromTemplate("MMMM y")
+      return dateFormatter
+    }()
     
     private lazy var days = generateDaysInMonth(for: selectedDate)
-    private var numberOfWeeksInBaseDate: Int {
-        calendar.range(of: .weekOfMonth, in: .month, for: selectedDate)?.count ?? 0
-    }
     
     private lazy var dateFormatter: DateFormatter = {
       let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "d"
       return dateFormatter
     }()
-    
+
+    @IBAction func onLogout(_ sender: Any) {
+        PFUser.logOut()
+        let main = UIStoryboard(name: "Main", bundle: nil)
+                let loginNavController = main.instantiateViewController(identifier: "LoginNavigationController")
+
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        setDayOfWeek()
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         setCollectionViewLayout()
         getInitialEvents(StateCode: "NY")
-        //idEventsByDate()
+        
     }
 
     func getInitialEvents(StateCode: String){
@@ -63,15 +90,33 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             self.eventsDate[date]?.append(event as [String : Any])
         }
     }
+    
+    func setDayOfWeek(){
+        weekdayStackView.distribution = .fillEqually
+        for dayNumber in 1...7 {
+          let dayLabel = UILabel()
+          dayLabel.font = .systemFont(ofSize: 12, weight: .bold)
+          dayLabel.textColor = .secondaryLabel
+          dayLabel.textAlignment = .center
+          dayLabel.text = dayOfWeekLetter(for: dayNumber)
+          dayLabel.isAccessibilityElement = false
+          weekdayStackView.addArrangedSubview(dayLabel)
+        }
+    }
     func setCollectionViewLayout(){
+        var numberOfWeeksInBaseDate: Int {
+            calendar.range(of: .weekOfMonth, in: .month, for: selectedDate)?.count ?? 0
+        }
+        print(numberOfWeeksInBaseDate)
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         let width = (view.frame.size.width - layout.minimumInteritemSpacing * 6)/7
-        layout.itemSize = CGSize(width: width, height: view.frame.size.height / CGFloat(numberOfWeeksInBaseDate+1))
+        layout.itemSize = CGSize(width: width, height: collectionView.frame.size.height / CGFloat(numberOfWeeksInBaseDate))
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        monthLabel.text = monthFormatter.string(from: selectedDate)
         return days.count
     }
     
@@ -80,35 +125,52 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         let day = days[indexPath.row]
         cell.dateLabel.text = day.number
         
+        cell.eventOneButton.isHidden = true;
+        cell.eventTwoButton.isHidden = true;
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
         let date = dateFormatter.string(from: day.date)
-        //print(date)
-        var y = 20.0
-        //print(self.eventsDate[date]?.count)
-        self.eventsDate[date]?.forEach{
-            let eventName = $0["name"] as! String
-            let button = buttonWithID(frame: CGRect(x: 0, y: y, width: cell.readableContentGuide.layoutFrame.width, height: 35.0))
-            y += 35.0
-            button.setTitle(eventName, for: .normal)
-            button.setTitleColor(.black, for: .normal)
-            button.setTitleColor(.red, for: .selected)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 9.0)
-            button.titleLabel?.numberOfLines = 3
-            
-            button.event = $0
-            button.addTarget(self, action: #selector(self.buttonClicked(_:)), for: .touchUpInside)
-            cell.addSubview(button)
+        if(self.eventsDate[date] != nil){
+            let count = self.eventsDate[date]!.count
+            if  count > 0 {
+                cell.eventOneButton.isHidden = false
+                cell.eventOneButton.frame = CGRect(x: 0, y: 25, width: cell.readableContentGuide.layoutFrame.width, height: 35)
+                let eventName = self.eventsDate[date]?[0]["name"] as! String
+                cell.eventOneButton.setTitle(eventName, for: .normal)
+                cell.eventOneButton.titleLabel?.font = UIFont.systemFont(ofSize: 9.0)
+                cell.eventOneButton.setTitleColor(.black, for: .normal)
+                cell.eventOneButton.titleLabel?.numberOfLines = 3
+                //print(self.eventsDate[date]![0])
+                cell.eventOneButton.event = self.eventsDate[date]![0]
+                //print("did print\(cell.eventOneButton.event)")
+                cell.eventOneButton.addTarget(self, action: #selector(self.buttonClicked(_:)), for: .touchUpInside)
+            }
+            if count > 1{
+                cell.eventTwoButton.isHidden = false
+                let eventName = self.eventsDate[date]?[1]["name"] as! String
+                cell.eventTwoButton.setTitle(eventName, for: .normal)
+                cell.eventTwoButton.titleLabel?.font = UIFont.systemFont(ofSize: 9.0)
+                cell.eventTwoButton.titleLabel?.numberOfLines = 3
+                cell.eventTwoButton.event = self.eventsDate[date]?.first
+                cell.eventTwoButton.addTarget(self, action: #selector(self.buttonClicked(_:)), for: .touchUpInside)
+            }
+//            if count > 2 {
+//                cell.etc.setTitle("...", for: .normal)
+//                cell.etc.titleLabel?.font = UIFont.systemFont(ofSize: 14.0)
+//                cell.etc.addTarget(self, action: #selector(self.showAllEvents), for: .touchUpInside)
+//            }
         }
-       
-        
+            
+        //}
         return cell
     }
     @objc func buttonClicked(_ sender: buttonWithID){
-        //print(sender.eventID)
        self.performSegue(withIdentifier: "showCalendarDetail", sender: sender)
     }
-    
+    @objc func showAllEvents(_ sender: Any){
+        print("need to show all events for that day and allow clicks for each events")
+    }
     override func prepare(for seque: UIStoryboardSegue, sender: Any?){
         let button = sender as! buttonWithID
         let calendarDetailViewController = seque.destination as! CalendarEventsDetailsViewController
@@ -217,6 +279,27 @@ private extension CalendarViewController {
         }
 
       return days
+    }
+
+    private func dayOfWeekLetter(for dayNumber: Int) -> String {
+      switch dayNumber {
+      case 1:
+        return "S"
+      case 2:
+        return "M"
+      case 3:
+        return "T"
+      case 4:
+        return "W"
+      case 5:
+        return "T"
+      case 6:
+        return "F"
+      case 7:
+        return "S"
+      default:
+        return ""
+      }
     }
 
 }
