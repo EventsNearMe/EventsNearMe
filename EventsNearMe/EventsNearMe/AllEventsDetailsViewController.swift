@@ -10,7 +10,7 @@ import Parse
 import MessageInputBar
 import Alamofire
 
-class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MessageInputBarDelegate {
 
     @IBOutlet weak var eventNameLabel: UILabel!
     @IBOutlet weak var lineUpImage1: UIImageView!
@@ -26,6 +26,8 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
              UIApplication.shared.open(url, options: [:], completionHandler: nil)
          }
     }
+    let commentBar = MessageInputBar()
+    var showsCommentBar = false
     let myRefreshControl = UIRefreshControl()
     @IBOutlet weak var tableView: UITableView!
     var event: [String:Any]!
@@ -33,6 +35,14 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     
     @IBAction func commentBotton(_ sender: Any) {
         print("click here to display comments")
+    }
+    
+    override var inputAccessoryView: UIView? {
+        return commentBar
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return showsCommentBar
     }
     
     override func viewDidLoad() {
@@ -58,6 +68,13 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
                 print("Error saving the event!")
             }
         }
+        
+        commentBar.inputTextView.placeholder = "Add a comment..."
+        commentBar.delegate = self
+        tableView.keyboardDismissMode = .interactive
+        
+        let center = NotificationCenter.default
+        center.addObserver(self, selector: #selector(keyboardWillBeHidden(note:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -105,13 +122,17 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return 1
+        
+//        let comments = (eventObj["Comments"] as? [PFObject]) ?? []
+//        return comments.count
+        return 2
     }
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        showsCommentBar = true
+        becomeFirstResponder()
+        commentBar.inputTextView.becomeFirstResponder()
     }
     
     @objc func onRefresh() {
@@ -127,5 +148,37 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         run(after: 2) {
            self.myRefreshControl.endRefreshing()
         }
+    }
+    
+    func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
+        let commentObj = PFObject(className: "Comments")
+        commentObj["text"] = commentBar.inputTextView.text
+        commentObj["event"] = eventObj
+        commentObj["eventName"] = (event["name"] as! String)
+        commentObj["user"] = PFUser.current()!
+
+        eventObj.add(commentObj, forKey: "Comments")
+        eventObj.saveInBackground { (success, error) in
+            if success {
+                print("Comment saved")
+            } else {
+                print("Error saving comment")
+            }
+        }
+        
+        tableView.reloadData()
+                
+        // Clear and dismiss the input bar
+        commentBar.inputTextView.text = nil
+        
+        showsCommentBar = false
+        becomeFirstResponder()
+        commentBar.inputTextView.resignFirstResponder()
+    }
+    
+    @objc func keyboardWillBeHidden(note: Notification) {
+        commentBar.inputTextView.text = nil
+        showsCommentBar = false
+        becomeFirstResponder()
     }
 }
