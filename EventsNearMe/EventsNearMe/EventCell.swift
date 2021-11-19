@@ -10,6 +10,7 @@ import UIKit
 class EventCell: UITableViewCell {
 
     @IBOutlet weak var posterView: UIImageView!
+    @IBOutlet weak var secondPosterView: UIImageView!
     @IBOutlet weak var eventLabel: UILabel!
     @IBOutlet weak var datetimeLabel: UILabel!
     @IBOutlet weak var favButton: UIButton!

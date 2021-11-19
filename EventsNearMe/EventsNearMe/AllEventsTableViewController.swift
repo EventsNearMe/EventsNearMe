@@ -7,6 +7,7 @@
 
 import UIKit
 import Parse
+import AlamofireImage
 
 class AllEventsTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
  
@@ -48,10 +49,31 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
         let state = venues2["state"] as! [String: Any]
         let stateCode = state["stateCode"] as! String
         let name = event["name"] as! String
-        cell.eventLabel.text = name
+        cell.eventLabel!.text = name
         cell.datetimeLabel.text = localDate
         cell.locationLabel.text = cityName
         cell.stateLabel.text = stateCode
+        
+        let attractions = embedded["attractions"] as! [[String: Any]]
+        let attractions2 = attractions[0]
+        let attractions3 = attractions.last
+        let images = attractions2["images"] as! [[String: Any]]
+        
+        let images2 = images[8]
+        
+        let url = images2["url"] as! String
+        
+        let posterUrl = URL(string: url)
+        
+        cell.posterView.af.setImage(withURL: posterUrl!)
+        
+        let imagesSecond = attractions3!["images"] as! [[String: Any]]
+        let images3 = imagesSecond[8]
+        let url2 = images3["url"] as! String
+        let posterUrl2 = URL(string: url2)
+        cell.secondPosterView.af.setImage(withURL: posterUrl2!)
+        
+        
         
 
         return cell
