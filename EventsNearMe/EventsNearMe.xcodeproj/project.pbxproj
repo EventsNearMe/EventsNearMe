@@ -25,6 +25,7 @@
 		59AA06F827458BA0002218D1 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AA06F727458BA0002218D1 /* Day.swift */; };
 		59AA06FA27458BCA002218D1 /* MonthMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AA06F927458BCA002218D1 /* MonthMetadata.swift */; };
 		59AA06FC27458CAB002218D1 /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AA06FB27458CAB002218D1 /* CalendarViewCell.swift */; };
+		59E073BA2748369200A10C16 /* CalendarDetailCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E073B92748369200A10C16 /* CalendarDetailCommentCell.swift */; };
 		5F1EA71786D91F6ACB60E34A /* Pods_EventsNearMe_EventsNearMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023931B6CB7862FA8E3DCD08 /* Pods_EventsNearMe_EventsNearMeUITests.framework */; };
 		6B6F04054ECE41DE18FD92B5 /* Pods_EventsNearMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 053FCFE5783947DD1FF99735 /* Pods_EventsNearMeTests.framework */; };
 		6E3BCB0B6B4E86646A5C9BD1 /* Pods_EventsNearMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75B1D6E0EA268B1742D72697 /* Pods_EventsNearMe.framework */; };
@@ -75,6 +76,7 @@
 		59AA06F927458BCA002218D1 /* MonthMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthMetadata.swift; sourceTree = "<group>"; };
 		59AA06FB27458CAB002218D1 /* CalendarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
 		59E073B62746157B00A10C16 /* EventsNearMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EventsNearMe.entitlements; sourceTree = "<group>"; };
+		59E073B92748369200A10C16 /* CalendarDetailCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailCommentCell.swift; sourceTree = "<group>"; };
 		5D90742EDDA313AAA4CD5AAA /* Pods-EventsNearMe-EventsNearMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsNearMe-EventsNearMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-EventsNearMe-EventsNearMeUITests/Pods-EventsNearMe-EventsNearMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		726F2DDB645CFB1E53D463B6 /* Pods-EventsNearMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventsNearMe.release.xcconfig"; path = "Target Support Files/Pods-EventsNearMe/Pods-EventsNearMe.release.xcconfig"; sourceTree = "<group>"; };
 		75B1D6E0EA268B1742D72697 /* Pods_EventsNearMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsNearMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +154,7 @@
 				59AA06F727458BA0002218D1 /* Day.swift */,
 				59AA06F927458BCA002218D1 /* MonthMetadata.swift */,
 				59AA06FB27458CAB002218D1 /* CalendarViewCell.swift */,
+				59E073B92748369200A10C16 /* CalendarDetailCommentCell.swift */,
 			);
 			path = EventsNearMe;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59E073BA2748369200A10C16 /* CalendarDetailCommentCell.swift in Sources */,
 				26FCAB4827348E0100C9D623 /* ViewController.swift in Sources */,
 				26FCAB4427348E0100C9D623 /* AppDelegate.swift in Sources */,
 				5911288E273F286A008D2354 /* AllEventsTableViewController.swift in Sources */,

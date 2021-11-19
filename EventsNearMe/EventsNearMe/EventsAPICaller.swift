@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import Parse
 
 class EventsAPICaller{
     static let client = EventsAPICaller ()
+    var events = [PFObject]()
     func getEventsByPostalCode(postalCode: Int, radius: Int, completion: @escaping ([[String:Any]]?) -> Void){
         let p = String(postalCode)
         let r = String(radius)
@@ -33,7 +35,7 @@ class EventsAPICaller{
     }
     func getEventsByStateCode(StateCode: String, completion: @escaping ([[String:Any]]?) -> Void){
         let url = URL(string: "https://app.ticketmaster.com/discovery/v2/events?apikey=3UJFG9ApE8TRi0TlE17F5jAQZL9q6OYS&stateCode=\(StateCode)")!
-        print(url)
+       // print(url)
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 10)
         
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
@@ -45,10 +47,73 @@ class EventsAPICaller{
                 
                 let embedded = dataDictionary["_embedded"] as! [String: Any]
                 let events = embedded["events"] as! [[String:Any]]
-                //print(events)
+                self.loadEventsToDB(Events: events)
                 return completion(events)
             }
         }
         task.resume()
+    }
+    
+    private func loadEventsToDB(Events: [[String:Any]]){
+        if(!Events.isEmpty){
+            //get all events currently inside back4App database
+            var dbEvents = [PFObject]()
+            let query = PFQuery(className: "Event")
+            query.includeKey("eventId")
+            query.findObjectsInBackground{(events, error) in
+                if events != nil{
+                    dbEvents = events!
+                    //convert events from query into an Array
+                    var eventArr = [String]()
+                    print("dbEvents.size = \(dbEvents.count)")
+                    for event in dbEvents{
+                        eventArr.append(event["eventId"] as! String)
+                    }
+                    //for each event from API request, do nothing if it already exists in DB,
+                    //add to DB if not
+                    for event in Events{
+                        let eventId = event["id"] as! String
+                        if eventArr.contains(eventId){
+                            //print("event already exist")
+                        }
+                        else {
+                            let pfEvent = PFObject(className: "Event")
+                            pfEvent["eventId"] = event["id"] as! String
+                            pfEvent["Name"] = event["name"] as! String
+                            
+                            let dates = event["dates"] as! [String:Any]
+                            let start = dates["start"] as! [String:Any]
+                            let localDate = start["localDate"] as! String
+                            pfEvent["Date"] = localDate
+                            
+                            let embedded = event["_embedded"] as! [String:Any]
+                            let venueInfo = embedded["venues"] as! [[String:Any]]
+                            let venueName = venueInfo[0]["name"] as! String
+                            pfEvent["venueName"] = venueName
+                            
+                            let venueCity = venueInfo[0]["city"] as! [String:String]
+                            let venueState = venueInfo[0]["state"] as! [String:String]
+                            let venueAddress = venueInfo[0]["address"] as! [String:String]
+                            let venueLocation = "\(String(venueAddress["line1"] ?? "")) \(venueCity["name"] ?? ""),\(venueState["stateCode"] ?? "") \(venueInfo[0]["postalCode"] as! String)"
+                            pfEvent["venueAddress"] = venueLocation
+                            
+                            pfEvent.saveInBackground{(success, error) in
+                                if success {
+                                    print("\(event["name"]as! String) \(localDate) saved!")
+                                }
+                                else{
+                                    print("error saving event!")
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                }
+                else{
+                    print("error \(String(describing: error?.localizedDescription))")
+                }
+            }
+        }
     }
 }

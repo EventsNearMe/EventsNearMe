@@ -25,8 +25,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         setCollectionViewLayout()
         collectionView.reloadData()
     }
-    var events = [[String:Any]]()
-    var eventsDate = [String:[[String:Any]]]()
+    var events = [PFObject]()
+    var eventsDate = [String:[PFObject]]()
     let calendar = Calendar(identifier: .gregorian)
     var selectedDate: Date = Date()
     
@@ -71,23 +71,29 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             guard let events = events else{
                 return
             }
-            self.events = events
-            self.idEventsByDate()
-            self.collectionView.reloadData()
+            let query = PFQuery(className: "Event")
+            query.findObjectsInBackground{(events, error) in
+                if events != nil{
+                    self.events = events!
+                    self.idEventsByDate()
+                    self.collectionView.reloadData()
+                }
+                else{
+                    print("unable to load events from bac4App")
+                }
+            }
         }
     }
     
     func idEventsByDate(){
-        print("events.count\(self.events.count)")
+        //print("events.count\(self.events.count)")
         for event in events{
-            let dates = event["dates"] as! [String:Any]
-            let start = dates["start"] as! [String:Any]
-            let date = start["localDate"] as! String
+            let date = event["Date"] as! String
             
             if self.eventsDate[date] == nil {
-                self.eventsDate[date] = [[String:Any]]()
+                self.eventsDate[date] = [PFObject]()
             }
-            self.eventsDate[date]?.append(event as [String : Any])
+            self.eventsDate[date]?.append(event as PFObject)
         }
     }
     
@@ -125,9 +131,6 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         let day = days[indexPath.row]
         cell.dateLabel.text = day.number
         
-        cell.eventOneButton.isHidden = true;
-        cell.eventTwoButton.isHidden = true;
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
         let date = dateFormatter.string(from: day.date)
@@ -135,8 +138,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             let count = self.eventsDate[date]!.count
             if  count > 0 {
                 cell.eventOneButton.isHidden = false
-                cell.eventOneButton.frame = CGRect(x: 0, y: 25, width: cell.readableContentGuide.layoutFrame.width, height: 35)
-                let eventName = self.eventsDate[date]?[0]["name"] as! String
+                cell.eventOneButton.frame = CGRect(x: 0, y: 30, width: cell.readableContentGuide.layoutFrame.width, height: 25)
+                let eventName = self.eventsDate[date]?[0]["Name"] as! String
                 cell.eventOneButton.setTitle(eventName, for: .normal)
                 cell.eventOneButton.titleLabel?.font = UIFont.systemFont(ofSize: 9.0)
                 cell.eventOneButton.setTitleColor(.black, for: .normal)
@@ -148,11 +151,13 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
             if count > 1{
                 cell.eventTwoButton.isHidden = false
-                let eventName = self.eventsDate[date]?[1]["name"] as! String
+                let eventName = self.eventsDate[date]?[1]["Name"] as! String
+                cell.eventTwoButton.frame = CGRect(x: 0, y: 65, width: cell.readableContentGuide.layoutFrame.width, height: 25)
                 cell.eventTwoButton.setTitle(eventName, for: .normal)
                 cell.eventTwoButton.titleLabel?.font = UIFont.systemFont(ofSize: 9.0)
+                cell.eventTwoButton.setTitleColor(.black, for: .normal)
                 cell.eventTwoButton.titleLabel?.numberOfLines = 3
-                cell.eventTwoButton.event = self.eventsDate[date]?.first
+                cell.eventTwoButton.event = self.eventsDate[date]![1]
                 cell.eventTwoButton.addTarget(self, action: #selector(self.buttonClicked(_:)), for: .touchUpInside)
             }
 //            if count > 2 {
@@ -174,7 +179,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func prepare(for seque: UIStoryboardSegue, sender: Any?){
         let button = sender as! buttonWithID
         let calendarDetailViewController = seque.destination as! CalendarEventsDetailsViewController
-        calendarDetailViewController.event = button.event!
+        calendarDetailViewController.event = button.event
+        print(button.event["Name"])
     }
 
 }
