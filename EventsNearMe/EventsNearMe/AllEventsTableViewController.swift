@@ -49,7 +49,7 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
         let state = venues2["state"] as! [String: Any]
         let stateCode = state["stateCode"] as! String
         let name = event["name"] as! String
-        cell.eventLabel!.text = name
+        cell.eventLabel.text = name
         cell.datetimeLabel.text = localDate
         cell.locationLabel.text = cityName
         cell.stateLabel.text = stateCode
