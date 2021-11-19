@@ -8,6 +8,10 @@ target 'EventsNearMe' do
   # Pods for EventsNearMe
     pod 'Alamofire' 
     pod 'Parse'
+
+    pod 'AlamofireImage'
+
+
     pod 'MessageInputBar'
 
   target 'EventsNearMeTests' do
