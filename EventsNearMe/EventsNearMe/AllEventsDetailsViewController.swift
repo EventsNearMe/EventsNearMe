@@ -78,42 +78,37 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //need to fix logic here
-        let comment = PFObject(className: "Comments")
-        comment["text"] = "This is a random comment"
-        comment["event"] = eventObj
-        comment["eventName"] = (event["name"] as! String)
-        comment["user"] = PFUser.current()!
 
-        eventObj.add(comment, forKey: "Comments")
-        eventObj.saveInBackground { (success, error) in
-            if success {
-                print("Comment saved")
-            } else {
-                print("Error saving comment")
-            }
-        }
         let comments = (eventObj["Comments"] as? [PFObject]) ?? []
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
-        
-        let newComment = comments[indexPath.row]
-        cell.commentLabel.text = newComment["text"] as? String
-        let user = comment["user"] as! PFUser
-        cell.userNameLabel.text = user.username
-       
-        return cell
+        if indexPath.row < comments.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
+            
+            let newComment = comments[indexPath.row]
+            cell.commentLabel.text = newComment["text"] as? String
+            let user = eventObj["user"] as! PFUser
+            cell.userNameLabel.text = user.username
+           
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddCommentCell")!
+            
+            return cell
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let comments = (eventObj["Comments"] as? [PFObject]) ?? []
-        return comments.count + 1
+        return comments.count + 2
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showsCommentBar = true
-        becomeFirstResponder()
-        commentBar.inputTextView.becomeFirstResponder()
+        let comments = (eventObj["Comments"] as? [PFObject]) ?? []
+        if indexPath.row == comments.count + 1 {
+            showsCommentBar = true
+            becomeFirstResponder()
+            commentBar.inputTextView.becomeFirstResponder()
+        }
     }
     
     @objc func onRefresh() {
