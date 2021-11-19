@@ -17,7 +17,7 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var lineUpImage2: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var venueLabel: UILabel!
-    @IBAction func getTiket(_ sender: Any) {
+    @IBAction func getTicket(_ sender: Any) {
         
         guard let url = URL(string: event["url"] as! String) else {
              return
@@ -29,7 +29,7 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     let myRefreshControl = UIRefreshControl()
     @IBOutlet weak var tableView: UITableView!
     var event: [String:Any]!
-    var selectedEvent: PFObject!
+    let eventObj = PFObject(className: "Events")
     
     @IBAction func commentBotton(_ sender: Any) {
         print("click here to display comments")
@@ -46,31 +46,11 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         tableView.dataSource = self
         myRefreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
         self.tableView.refreshControl = myRefreshControl
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let comments = (selectedEvent["Comments"])
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
         
-//        if comments != nil {
-//            let comment = " "
-//            cell.commentLabel.text = comment["text"] as? String
-//            let user = comment["user"] as! PFUser
-//            cell.userNameLabel.text = user.username
-//        }
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return comments.count
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let event = PFObject(className: "Events")
-       
-        event["user"] = PFUser.current()!
-        event.saveInBackground {(success, error) in
+        eventObj["user"] = PFUser.current()!
+        eventObj["event"] = event
+        eventObj["eventName"] = (event["name"] as! String)
+        eventObj.saveInBackground {(success, error) in
             if success {
                 self.dismiss(animated: true, completion: nil)
                 print("Event saved!")
@@ -78,27 +58,60 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
                 print("Error saving the event!")
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let query = PFQuery(className: "Events")
+        query.includeKey("Comments")
+        query.limit = 20
+        
+//        query.findObjectsInBackground{(eventObj, error) in
+//            if eventObj != nil {
+//                self.tableView.reloadData()
+//            } else {
+//                print("Failed to retrieve")
+//            }
+//        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let comment = PFObject(className: "Comments")
         comment["text"] = "This is a random comment"
-        comment["event"] = event
+        comment["event"] = eventObj
+        comment["eventName"] = (event["name"] as! String)
         comment["user"] = PFUser.current()!
 
-        event.add(comment, forKey: "Comments")
-
-        event.saveInBackground { (success, error) in
+        eventObj.add(comment, forKey: "Comments")
+        eventObj.saveInBackground { (success, error) in
             if success {
                 print("Comment saved")
             } else {
                 print("Error saving comment")
             }
         }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
-        cell.commentLabel.text = comment["text"] as? String
+        
+        let comments = (eventObj["Comments"] as? [PFObject]) ?? []
+        let currComment = comments[0]
+        cell.commentLabel.text = currComment["text"] as? String
         let user = comment["user"] as! PFUser
         cell.userNameLabel.text = user.username
+       
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        return 1
+    }
+
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        selectedEvent = event
     }
     
     @objc func onRefresh() {
