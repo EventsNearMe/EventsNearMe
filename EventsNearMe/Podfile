@@ -9,6 +9,7 @@ target 'EventsNearMe' do
     pod 'Alamofire' 
     pod 'Parse'
     pod 'AlamofireImage'
+    pod 'MessageInputBar'
 
   target 'EventsNearMeTests' do
     inherit! :search_paths
