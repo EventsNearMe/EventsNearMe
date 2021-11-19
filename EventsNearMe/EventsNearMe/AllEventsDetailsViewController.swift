@@ -77,24 +77,8 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         center.addObserver(self, selector: #selector(keyboardWillBeHidden(note:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        let query = PFQuery(className: "Events")
-        query.includeKey("Comments")
-        query.limit = 20
-        
-//        query.findObjectsInBackground{(eventObj, error) in
-//            if eventObj != nil {
-//                self.tableView.reloadData()
-//            } else {
-//                print("Failed to retrieve")
-//            }
-//        }
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        //need to fix logic here
         let comment = PFObject(className: "Comments")
         comment["text"] = "This is a random comment"
         comment["event"] = eventObj
@@ -109,12 +93,12 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
                 print("Error saving comment")
             }
         }
+        let comments = (eventObj["Comments"] as? [PFObject]) ?? []
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
         
-        let comments = (eventObj["Comments"] as? [PFObject]) ?? []
-        let currComment = comments[0]
-        cell.commentLabel.text = currComment["text"] as? String
+        let newComment = comments[indexPath.row]
+        cell.commentLabel.text = newComment["text"] as? String
         let user = comment["user"] as! PFUser
         cell.userNameLabel.text = user.username
        
@@ -122,12 +106,9 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-//        let comments = (eventObj["Comments"] as? [PFObject]) ?? []
-//        return comments.count
-        return 2
+        let comments = (eventObj["Comments"] as? [PFObject]) ?? []
+        return comments.count + 1
     }
-
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         showsCommentBar = true
