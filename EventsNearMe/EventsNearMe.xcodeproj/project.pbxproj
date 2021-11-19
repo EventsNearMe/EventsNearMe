@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2688204227444C2900279296 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2688204127444C2900279296 /* CommentCell.swift */; };
 		26C5BEAF2740613900D6A275 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C5BEAE2740613900D6A275 /* EventCell.swift */; };
 		26FCAB4427348E0100C9D623 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAB4327348E0100C9D623 /* AppDelegate.swift */; };
 		26FCAB4627348E0100C9D623 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAB4527348E0100C9D623 /* SceneDelegate.swift */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		023931B6CB7862FA8E3DCD08 /* Pods_EventsNearMe_EventsNearMeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsNearMe_EventsNearMeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		053FCFE5783947DD1FF99735 /* Pods_EventsNearMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventsNearMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2688204127444C2900279296 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		26C5BEAE2740613900D6A275 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		26FCAB4027348E0100C9D623 /* EventsNearMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventsNearMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26FCAB4327348E0100C9D623 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				59112893273F2B12008D2354 /* CalendarEventsDetailsViewController.swift */,
 				59112895273F2B83008D2354 /* AllEventsDetailsViewController.swift */,
 				26C5BEAE2740613900D6A275 /* EventCell.swift */,
+				2688204127444C2900279296 /* CommentCell.swift */,
 			);
 			path = EventsNearMe;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				59112890273F2A56008D2354 /* CalendarCollectionViewController.swift in Sources */,
 				26FCAB4827348E0100C9D623 /* ViewController.swift in Sources */,
 				26C5BEAF2740613900D6A275 /* EventCell.swift in Sources */,
+				2688204227444C2900279296 /* CommentCell.swift in Sources */,
 				26FCAB4427348E0100C9D623 /* AppDelegate.swift in Sources */,
 				5911288E273F286A008D2354 /* AllEventsTableViewController.swift in Sources */,
 				59112888273B4394008D2354 /* EventsAPICaller.swift in Sources */,
