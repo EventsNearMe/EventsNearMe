@@ -99,16 +99,13 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let comments = (eventObj["Comments"] as? [PFObject]) ?? []
-        return comments.count + 2
+        return comments.count + 1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let comments = (eventObj["Comments"] as? [PFObject]) ?? []
-        if indexPath.row == comments.count + 1 {
-            showsCommentBar = true
-            becomeFirstResponder()
-            commentBar.inputTextView.becomeFirstResponder()
-        }
+        showsCommentBar = true
+        becomeFirstResponder()
+        commentBar.inputTextView.becomeFirstResponder()
     }
     
     @objc func onRefresh() {
