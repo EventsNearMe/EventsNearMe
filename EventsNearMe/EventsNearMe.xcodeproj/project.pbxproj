@@ -18,7 +18,6 @@
 		26FCAB5B27348E0500C9D623 /* EventsNearMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAB5A27348E0500C9D623 /* EventsNearMeTests.swift */; };
 		26FCAB6527348E0500C9D623 /* EventsNearMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAB6427348E0500C9D623 /* EventsNearMeUITests.swift */; };
 		26FCAB6727348E0500C9D623 /* EventsNearMeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCAB6627348E0500C9D623 /* EventsNearMeUITestsLaunchTests.swift */; };
-		42434AE32742D6E20030BBA6 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 42434AE22742D6E20030BBA6 /* AlamofireImage */; };
 		59112888273B4394008D2354 /* EventsAPICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59112887273B4394008D2354 /* EventsAPICaller.swift */; };
 		5911288C273F259A008D2354 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5911288B273F259A008D2354 /* LoginViewController.swift */; };
 		5911288E273F286A008D2354 /* AllEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5911288D273F286A008D2354 /* AllEventsTableViewController.swift */; };
@@ -86,7 +85,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E3BCB0B6B4E86646A5C9BD1 /* Pods_EventsNearMe.framework in Frameworks */,
-				42434AE32742D6E20030BBA6 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,9 +209,6 @@
 			dependencies = (
 			);
 			name = EventsNearMe;
-			packageProductDependencies = (
-				42434AE22742D6E20030BBA6 /* AlamofireImage */,
-			);
 			productName = EventsNearMe;
 			productReference = 26FCAB4027348E0100C9D623 /* EventsNearMe.app */;
 			productType = "com.apple.product-type.application";
@@ -289,9 +284,6 @@
 				Base,
 			);
 			mainGroup = 26FCAB3727348E0100C9D623;
-			packageReferences = (
-				42434AE12742D6E10030BBA6 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
-			);
 			productRefGroup = 26FCAB4127348E0100C9D623 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -812,25 +804,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		42434AE12742D6E10030BBA6 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/AlamofireImage";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		42434AE22742D6E20030BBA6 /* AlamofireImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 42434AE12742D6E10030BBA6 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
-			productName = AlamofireImage;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 26FCAB3827348E0100C9D623 /* Project object */;
 }
