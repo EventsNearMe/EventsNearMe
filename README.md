@@ -141,3 +141,7 @@ Event
 ### Walkthrough GIF - Milestone 10
 
 <img src="ezgif.com-gif-maker.gif" width=250><br>
+
+### Walkthrough GIF - Milestone 11
+
+![](https://i.imgur.com/pe4e17d.gif)
