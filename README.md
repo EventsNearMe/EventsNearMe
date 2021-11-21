@@ -144,4 +144,4 @@ Event
 
 ### Walkthrough GIF - Milestone 11
 
-![](https://i.imgur.com/pe4e17d.gif)
+![](https://github.com/EventsNearMe/EventsNearMe/blob/6ea5e7dc67407f6569f92eb17acc95b5d9e0f428/ezgif.com-gif-maker2.gif)
