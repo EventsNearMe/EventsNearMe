@@ -153,3 +153,14 @@ Event
 ### Walkthrough GIF - Milestone 11
 
 ![](https://github.com/EventsNearMe/EventsNearMe/blob/6ea5e7dc67407f6569f92eb17acc95b5d9e0f428/ezgif.com-gif-maker2.gif)
+
+### Milestone 12 build progress
+
+### User Stories
+- [x] User can create new comments on a particular event
+- [x] Presenting events in a calendar view
+- [x] User can tap on a cell to see more details about a particular event
+
+### Walkthrough GIF - Milestone 12
+
+<img src="ezgif.com-gif-maker3.gif" width=250><br>
