@@ -27,7 +27,7 @@ class EventsAPICaller{
                 
                 let embedded = dataDictionary["_embedded"] as! [String: Any]
                 let events = embedded["events"] as! [[String:Any]]
-                print(events)
+
                 return completion(events)
             }
         }

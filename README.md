@@ -141,3 +141,15 @@ Event
 ### Walkthrough GIF - Milestone 10
 
 <img src="ezgif.com-gif-maker.gif" width=250><br>
+
+### Milestone 11 build progress
+
+### User Stories
+- [x] User can view and scroll through a list of events in the app
+- [x] User can view the event posters in each row
+- [x] User can tap a cell to see more details about a particular event
+- [x] User can tap the ticket button to get ticket information in the browser
+
+### Walkthrough GIF - Milestone 11
+
+![](https://github.com/EventsNearMe/EventsNearMe/blob/6ea5e7dc67407f6569f92eb17acc95b5d9e0f428/ezgif.com-gif-maker2.gif)
