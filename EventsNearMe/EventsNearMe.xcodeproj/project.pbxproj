@@ -156,16 +156,16 @@
 				5911288D273F286A008D2354 /* AllEventsTableViewController.swift */,
 				59112893273F2B12008D2354 /* CalendarEventsDetailsViewController.swift */,
 				59112895273F2B83008D2354 /* AllEventsDetailsViewController.swift */,
-<<<<<<< HEAD
+
 				59AA06F527458A88002218D1 /* CalendarViewController.swift */,
 				59AA06F727458BA0002218D1 /* Day.swift */,
 				59AA06F927458BCA002218D1 /* MonthMetadata.swift */,
 				59AA06FB27458CAB002218D1 /* CalendarViewCell.swift */,
 				59E073B92748369200A10C16 /* CalendarDetailCommentCell.swift */,
-=======
+
 				26C5BEAE2740613900D6A275 /* EventCell.swift */,
 				2688204127444C2900279296 /* CommentCell.swift */,
->>>>>>> main
+
 			);
 			path = EventsNearMe;
 			sourceTree = "<group>";
