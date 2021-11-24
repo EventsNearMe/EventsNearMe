@@ -21,7 +21,7 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var commentsTableView: UITableView!
     @IBAction func getTicket(_ sender: Any) {
-        guard let url = URL(string: event["url"] as! String) else {
+        guard let url = URL(string: event["getTicket"] as! String) else {
                      return
                  }
                 if UIApplication.shared.canOpenURL(url) {
@@ -45,6 +45,12 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let imgOneUrl = URL(string: event["posterOneURL"] as! String)
+        lineUpImage1.af.setImage(withURL: imgOneUrl!)
+        
+        let imgTwoUrl = URL(string: event["posterTwoURL"] as! String)
+        lineUpImage2.af.setImage(withURL: imgTwoUrl!)
+        
         eventNameLabel.text = event["Name"] as? String
         eventNameLabel.numberOfLines = 0
         timeLabel.text = event["Date"] as? String
