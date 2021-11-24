@@ -22,7 +22,8 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
     }
     
-    var events = [[String:Any]]()
+    var events = [PFObject]()
+    var eventsDate = [String:[PFObject]]()
                                                                                                            
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,67 +31,38 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
         tableView.dataSource = self
         tableView.delegate = self
         
-        getEventsByPostalCode(postalCode: 11217, radius: 100)
+        getInitialEvents(StateCode: "NY")
 
+    }
+    
+    func getInitialEvents(StateCode: String){
+        EventsAPICaller.client.getEventsByStateCode(StateCode: StateCode){(events) in
+            guard let events = events else{
+                return
+            }
+            let query = PFQuery(className: "Event")
+            query.findObjectsInBackground{(events, error) in
+                if events != nil{
+                    self.events = events!
+                    self.tableView.reloadData()
+                }
+                else{
+                    print("unable to load events from bac4App")
+                }
+            }
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventCell
         
         let event = events[indexPath.row]
-        let dates = event["dates"] as! [String: Any]
-        let start = dates["start"] as! [String: Any]
-        let localDate = start["localDate"] as! String
-        let embedded = event["_embedded"] as! [String: Any]
-        let venues = embedded["venues"] as! [[String:Any]]
-        let venues2 = venues[0]
-        let city = venues2["city"] as! [String: Any]
-        let cityName = city["name"] as! String
-        let state = venues2["state"] as! [String: Any]
-        let stateCode = state["stateCode"] as! String
-        let name = event["name"] as! String
-        cell.eventLabel.text = name
-        cell.datetimeLabel.text = localDate
-        cell.locationLabel.text = cityName
-        cell.stateLabel.text = stateCode
-        
-        let attractions = embedded["attractions"] as! [[String: Any]]
-        let attractions2 = attractions[0]
-        let attractions3 = attractions.last
-        let images = attractions2["images"] as! [[String: Any]]
-        
-        let images2 = images[8]
-        
-        let url = images2["url"] as! String
-        
-        let posterUrl = URL(string: url)
-        
-        cell.posterView.af.setImage(withURL: posterUrl!)
-        
-        let imagesSecond = attractions3!["images"] as! [[String: Any]]
-        let images3 = imagesSecond[8]
-        let url2 = images3["url"] as! String
-        let posterUrl2 = URL(string: url2)
-        cell.secondPosterView.af.setImage(withURL: posterUrl2!)
-        
-        
-        
 
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.count
-    }
-    
-    func getEventsByPostalCode(postalCode: Int, radius: Int){
-        EventsAPICaller.client.getEventsByPostalCode(postalCode: postalCode, radius: radius){(events) in
-            guard let events = events else{
-                return
-            }
-            self.events = events;
-            self.tableView.reloadData()
-        }
     }
 
     // MARK: - Navigation

@@ -30,8 +30,9 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     var showsCommentBar = false
     let myRefreshControl = UIRefreshControl()
     @IBOutlet weak var tableView: UITableView!
-    var event: [String:Any]!
-    let eventObj = PFObject(className: "Events")
+    var event: PFObject!
+    var comments = [PFObject]()
+    var numComments: Int!
     
     @IBAction func commentBotton(_ sender: Any) {
         print("click here to display comments")
@@ -49,25 +50,17 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        eventNameLabel.text = (event["name"] as! String)
-        eventNameLabel.sizeToFit()
+        eventNameLabel.text = event["Name"] as? String
+        eventNameLabel.numberOfLines = 0
+        timeLabel.text = event["Date"] as? String
+        venueLabel.text = event["venueName"] as? String
         
+        getEventComments()
+
         tableView.delegate = self
         tableView.dataSource = self
         myRefreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
         self.tableView.refreshControl = myRefreshControl
-        
-        eventObj["user"] = PFUser.current()!
-        eventObj["event"] = event
-        eventObj["eventName"] = (event["name"] as! String)
-        eventObj.saveInBackground {(success, error) in
-            if success {
-                self.dismiss(animated: true, completion: nil)
-                print("Event saved!")
-            } else {
-                print("Error saving the event!")
-            }
-        }
         
         commentBar.inputTextView.placeholder = "Add a comment..."
         commentBar.delegate = self
@@ -77,28 +70,42 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         center.addObserver(self, selector: #selector(keyboardWillBeHidden(note:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    func getEventComments(){
+        numComments = 7
+        let query = PFQuery(className: "Comment")
+        query.whereKey("event", equalTo: self.event!)
+        query.order(byDescending: "updatedAt")
+        query.includeKeys(["author"])
+        query.limit = numComments
+        
+        query.findObjectsInBackground{(comments, error) in
+            if comments != nil {
+                self.comments = comments!
+                self.tableView.reloadData()
+            }
+            else{
+                print("error \(String(describing: error?.localizedDescription))")
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let comments = (eventObj["Comments"] as? [PFObject]) ?? []
-        
-        if indexPath.row < comments.count {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
-            
-            let newComment = comments[indexPath.row]
-            cell.commentLabel.text = newComment["text"] as? String
-            let user = eventObj["user"] as! PFUser
-            cell.userNameLabel.text = user.username
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddCommentCell")!
            
             return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AddCommentCell")!
-            
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell")as! CommentCell
+            let commentText = comments[indexPath.row-1]["text"] as? String
+            cell.commentLabel.text = commentText
+
             return cell
         }
+       
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let comments = (eventObj["Comments"] as? [PFObject]) ?? []
         return comments.count + 1
     }
     
@@ -124,20 +131,21 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-        let commentObj = PFObject(className: "Comments")
-        commentObj["text"] = commentBar.inputTextView.text
-        commentObj["event"] = eventObj
-        commentObj["eventName"] = (event["name"] as! String)
-        commentObj["user"] = PFUser.current()!
-
-        eventObj.add(commentObj, forKey: "Comments")
-        eventObj.saveInBackground { (success, error) in
-            if success {
-                print("Comment saved")
-            } else {
-                print("Error saving comment")
+        let comment = PFObject(className: "Comment")
+        comment["text"] = commentBar.inputTextView.text
+        comment["event"] = event
+        comment["author"] = PFUser.current()!
+        
+        event.add(comment, forKey: "comments")
+        event.saveInBackground{(success, error) in
+            if success{
+                print("comment saved")
+            }
+            else{
+                print("error saving comment")
             }
         }
+        getEventComments()
         
         tableView.reloadData()
                 
