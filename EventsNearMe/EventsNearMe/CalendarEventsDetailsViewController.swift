@@ -109,7 +109,7 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = commentsTableView.dequeueReusableCell(withIdentifier: "AddCommentCell")!
-            cell.textLabel?.text = String("Add Comment for this event...")
+            cell.textLabel?.text = String("Click here to add a comment...")
             return cell
         }else{
             let cell = commentsTableView.dequeueReusableCell(withIdentifier: "CalendarDetailCommentCell")as! CalendarDetailCommentCell
@@ -125,10 +125,13 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showsCommentBar = true
-        becomeFirstResponder()
-        commentBar.inputTextView.becomeFirstResponder()
-        self.view.frame.origin.y -= 100
+        if indexPath.row == 0{
+            showsCommentBar = true
+            becomeFirstResponder()
+            commentBar.inputTextView.becomeFirstResponder()
+            self.view.frame.origin.y -= 110
+        }
+        
     }
     @objc func onRefresh() {
         getEventComments()
@@ -156,14 +159,14 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
         event.add(comment, forKey: "comments")
         event.saveInBackground{(success, error) in
             if success{
-                print("comment saved")
+                self.getEventComments()
+                self.commentsTableView.reloadData()
             }
             else{
                 print("error saving comment")
             }
         }
-        getEventComments()
-        commentsTableView.reloadData()
+
                 
         // Clear and dismiss the input bar
         commentBar.inputTextView.text = nil

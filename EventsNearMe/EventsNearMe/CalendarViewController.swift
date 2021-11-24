@@ -182,7 +182,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
                     return menu
                 }
                 var demoMenu: UIMenu {
-                    return UIMenu(title: "My menu", image: nil, identifier: nil, options: [], children: menuItems)
+                    return UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
                 }
                 cell.etcButton.menu = demoMenu
                 cell.etcButton.showsMenuAsPrimaryAction = true
