@@ -138,12 +138,13 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             let count = self.eventsDate[date]!.count
             if  count > 0 {
                 cell.eventOneButton.isHidden = false
-                cell.eventOneButton.frame = CGRect(x: 0, y: 30, width: cell.readableContentGuide.layoutFrame.width, height: 25)
+                cell.eventOneButton.frame = CGRect(x: 0, y: 30, width: cell.readableContentGuide.layoutFrame.width+6, height: 32)
                 let eventName = self.eventsDate[date]?[0]["Name"] as! String
                 cell.eventOneButton.setTitle(eventName, for: .normal)
                 cell.eventOneButton.titleLabel?.font = UIFont.systemFont(ofSize: 9.0)
-                cell.eventOneButton.setTitleColor(.black, for: .normal)
+                cell.eventOneButton.setTitleColor(.white, for: .normal)
                 cell.eventOneButton.titleLabel?.numberOfLines = 3
+                cell.eventOneButton.contentHorizontalAlignment = .center
                 //print(self.eventsDate[date]![0])
                 cell.eventOneButton.event = self.eventsDate[date]![0]
                 //print("did print\(cell.eventOneButton.event)")
@@ -152,35 +153,52 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             if count > 1{
                 cell.eventTwoButton.isHidden = false
                 let eventName = self.eventsDate[date]?[1]["Name"] as! String
-                cell.eventTwoButton.frame = CGRect(x: 0, y: 65, width: cell.readableContentGuide.layoutFrame.width, height: 25)
+                cell.eventTwoButton.frame = CGRect(x: 0, y: 65, width: cell.readableContentGuide.layoutFrame.width+6, height: 32)
                 cell.eventTwoButton.setTitle(eventName, for: .normal)
                 cell.eventTwoButton.titleLabel?.font = UIFont.systemFont(ofSize: 9.0)
-                cell.eventTwoButton.setTitleColor(.black, for: .normal)
+                cell.eventTwoButton.setTitleColor(.white, for: .normal)
                 cell.eventTwoButton.titleLabel?.numberOfLines = 3
+                cell.eventOneButton.contentHorizontalAlignment = .center
                 cell.eventTwoButton.event = self.eventsDate[date]![1]
                 cell.eventTwoButton.addTarget(self, action: #selector(self.buttonClicked(_:)), for: .touchUpInside)
             }
-//            if count > 2 {
-//                cell.etc.setTitle("...", for: .normal)
-//                cell.etc.titleLabel?.font = UIFont.systemFont(ofSize: 14.0)
-//                cell.etc.addTarget(self, action: #selector(self.showAllEvents), for: .touchUpInside)
-//            }
+        
+         
+            if count > 2 {
+                cell.etcButton.isHidden = false
+                cell.etcButton.frame = CGRect(x: 0, y: 100, width: cell.readableContentGuide.layoutFrame.width+6, height: 20)
+                cell.etcButton.setTitle("...", for: .normal)
+                cell.etcButton.titleLabel?.font = UIFont.systemFont(ofSize: 20.0)
+                cell.etcButton.setTitleColor(.white, for: .normal)
+                var menuItems: [UIAction] {
+                    var menu = [UIAction]()
+                    for event in eventsDate[date]! {
+                        let action = UIAction(title: event["Name"] as! String) { (action) in
+                            cell.etcButton.event = event
+                            self.buttonClicked(cell.etcButton)
+                        }
+                        menu.append(action)
+                    }
+                    return menu
+                }
+                var demoMenu: UIMenu {
+                    return UIMenu(title: "My menu", image: nil, identifier: nil, options: [], children: menuItems)
+                }
+                cell.etcButton.menu = demoMenu
+                cell.etcButton.showsMenuAsPrimaryAction = true
+            }
         }
-            
-        //}
         return cell
     }
     @objc func buttonClicked(_ sender: buttonWithID){
        self.performSegue(withIdentifier: "showCalendarDetail", sender: sender)
     }
-    @objc func showAllEvents(_ sender: Any){
-        print("need to show all events for that day and allow clicks for each events")
-    }
+
     override func prepare(for seque: UIStoryboardSegue, sender: Any?){
         let button = sender as! buttonWithID
         let calendarDetailViewController = seque.destination as! CalendarEventsDetailsViewController
         calendarDetailViewController.event = button.event
-        print(button.event["Name"])
+        //print(button.event["Name"])
     }
 
 }
@@ -290,19 +308,19 @@ private extension CalendarViewController {
     private func dayOfWeekLetter(for dayNumber: Int) -> String {
       switch dayNumber {
       case 1:
-        return "S"
+        return "SUN"
       case 2:
-        return "M"
+        return "MON"
       case 3:
-        return "T"
+        return "TUE"
       case 4:
-        return "W"
+        return "WED"
       case 5:
-        return "T"
+        return "THU"
       case 6:
-        return "F"
+        return "FRI"
       case 7:
-        return "S"
+        return "SAT"
       default:
         return ""
       }
