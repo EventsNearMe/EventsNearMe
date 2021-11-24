@@ -34,10 +34,6 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     var comments = [PFObject]()
     var numComments: Int!
     
-    @IBAction func commentBotton(_ sender: Any) {
-        print("click here to display comments")
-    }
-    
     override var inputAccessoryView: UIView? {
         return commentBar
     }
@@ -53,8 +49,15 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         let imgOneUrl = URL(string: event["posterOneURL"] as! String)
         lineUpImage1.af.setImage(withURL: imgOneUrl!)
         
-        let imgTwoUrl = URL(string: event["posterTwoURL"] as! String)
-        lineUpImage2.af.setImage(withURL: imgTwoUrl!)
+        if event["category"] as! String != "Sports"{
+            lineUpImage2.isHidden = true
+            lineUpImage1.translatesAutoresizingMaskIntoConstraints = false
+            view.addConstraint(NSLayoutConstraint(item: lineUpImage1!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -20))
+            
+        }else{
+            let imgTwoUrl = URL(string: event["posterTwoURL"] as! String)
+            lineUpImage2.af.setImage(withURL: imgTwoUrl!)
+        }
         
         eventNameLabel.text = event["Name"] as? String
         eventNameLabel.numberOfLines = 0
@@ -120,6 +123,7 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         showsCommentBar = true
         becomeFirstResponder()
+        self.view.frame.origin.y -= 110
         commentBar.inputTextView.becomeFirstResponder()
     }
     
@@ -147,16 +151,15 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         event.add(comment, forKey: "comments")
         event.saveInBackground{(success, error) in
             if success{
+                self.getEventComments()
+                self.tableView.reloadData()
                 print("comment saved")
             }
             else{
                 print("error saving comment")
             }
         }
-        getEventComments()
         
-        tableView.reloadData()
-                
         // Clear and dismiss the input bar
         commentBar.inputTextView.text = nil
         
@@ -168,6 +171,7 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     @objc func keyboardWillBeHidden(note: Notification) {
         commentBar.inputTextView.text = nil
         showsCommentBar = false
+        self.view.frame.origin.y = 0
         becomeFirstResponder()
     }
 }
