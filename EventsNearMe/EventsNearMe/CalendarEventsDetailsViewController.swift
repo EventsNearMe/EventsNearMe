@@ -11,7 +11,7 @@ import MessageInputBar
 import Alamofire
 
 class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MessageInputBarDelegate {
-    
+
     @IBOutlet weak var lineUpImage2: UIImageView!
     @IBOutlet weak var lineUpImage1: UIImageView!
     
@@ -45,11 +45,22 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let imgOneUrl = URL(string: event["posterOneURL"] as! String)
         lineUpImage1.af.setImage(withURL: imgOneUrl!)
+
+        if event["category"] as! String != "Sports"{
+            lineUpImage2.isHidden = true
+            lineUpImage1.translatesAutoresizingMaskIntoConstraints = false
+            view.addConstraint(NSLayoutConstraint(item: lineUpImage1!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -20))
+            
+        }else{
+            let imgTwoUrl = URL(string: event["posterTwoURL"] as! String)
+            lineUpImage2.af.setImage(withURL: imgTwoUrl!)
+        }
         
-        let imgTwoUrl = URL(string: event["posterTwoURL"] as! String)
-        lineUpImage2.af.setImage(withURL: imgTwoUrl!)
+        
+        
         
         eventNameLabel.text = event["Name"] as? String
         eventNameLabel.numberOfLines = 0
@@ -98,7 +109,7 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = commentsTableView.dequeueReusableCell(withIdentifier: "AddCommentCell")!
-            cell.textLabel?.text = String("Click to Add Comment...")
+            cell.textLabel?.text = String("Add Comment for this event...")
             return cell
         }else{
             let cell = commentsTableView.dequeueReusableCell(withIdentifier: "CalendarDetailCommentCell")as! CalendarDetailCommentCell
