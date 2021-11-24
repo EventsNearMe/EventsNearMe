@@ -73,8 +73,6 @@ Gather all types of events from Eventbrite in the local area. Users can search f
    
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-
 <img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/EventsNearMe.gif" width=300>
 <img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/hand-sketched-wireframes.jpg" width=300>
 
@@ -155,7 +153,8 @@ Event
 ### User Stories
 - [x] User can create new comments on a particular event
 - [x] Presenting events in a calendar view
-- [x] User can tap on a cell to see more details about a particular event
+- [x] User can tap on a grid in calendar view to see more details about a particular event
+- [x] User can click to see the following month events in a calendar view
 
 ### Walkthrough GIF - Milestone 12
 
