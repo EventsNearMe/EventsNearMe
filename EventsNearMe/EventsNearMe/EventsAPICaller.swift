@@ -80,6 +80,7 @@ class EventsAPICaller{
                             let pfEvent = PFObject(className: "Event")
                             pfEvent["eventId"] = event["id"] as! String
                             pfEvent["Name"] = event["name"] as! String
+                            pfEvent["getTicket"] = event["url"] as! String
                             
                             let dates = event["dates"] as! [String:Any]
                             let start = dates["start"] as! [String:Any]
@@ -97,6 +98,25 @@ class EventsAPICaller{
                             let venueLocation = "\(String(venueAddress["line1"] ?? "")) \(venueCity["name"] ?? ""),\(venueState["stateCode"] ?? "") \(venueInfo[0]["postalCode"] as! String)"
                             pfEvent["venueAddress"] = venueLocation
                             
+                            let attractions = embedded["attractions"] as! [[String: Any]]
+                            let attractions2 = attractions[0]
+                            let images = attractions2["images"] as! [[String: Any]]
+                            let images2 = images[8]
+                            pfEvent["posterOneURL"] = images2["url"] as! String
+
+                            let attractions3 = attractions.last
+                            let imagesSecond = attractions3!["images"] as! [[String: Any]]
+                            let images3 = imagesSecond[8]
+                            pfEvent["posterTwoURL"] = images3["url"] as! String
+                            
+                            let category = event["classifications"] as! [[String: Any]]
+                            let segment = category[0]["segment"] as! [String: Any]
+                            pfEvent["category"] = segment["name"] as! String
+                            
+                            let genre = category[0]["genre"] as! [String: Any]
+                            pfEvent["genre"] = genre["name"] as! String
+                            let subGenre = category[0]["subGenre"] as! [String:Any]
+                            pfEvent["subGenre"] = subGenre["name"] as! String
                             pfEvent.saveInBackground{(success, error) in
                                 if success {
                                     print("\(event["name"]as! String) \(localDate) saved!")
