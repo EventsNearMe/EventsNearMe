@@ -75,12 +75,8 @@ Gather all types of events from Eventbrite in the local area. Users can search f
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
 
-<img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/EventsNearMe.gif" width=300>
-<img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/hand-sketched-wireframes.jpg" width=300>
-<img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/sketched-wireframes-1.jpg" width=300>
-<img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/sketched-wireframes-2.jpg" width=300>
-<img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/sketched-wireframes-3.jpg" width=300>
-<img src="https://github.com/EventsNearMe/EventsNearMe/blob/main/wireframes/sketched-wireframes-4.jpg" width=300>
+<img src="EventsNearMe.gif" width=300>
+<img src="hand-sketched-wireframes.jpg" width=300>
 
 
 ## Schema 
@@ -152,7 +148,7 @@ Event
 
 ### Walkthrough GIF - Milestone 11
 
-![](https://github.com/EventsNearMe/EventsNearMe/blob/6ea5e7dc67407f6569f92eb17acc95b5d9e0f428/ezgif.com-gif-maker2.gif)
+<img src="ezgif.com-gif-maker2.gif" width=250><br>
 
 ### Milestone 12 build progress
 
