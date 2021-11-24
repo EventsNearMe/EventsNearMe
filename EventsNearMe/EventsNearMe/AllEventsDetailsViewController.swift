@@ -19,7 +19,7 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var venueLabel: UILabel!
     @IBAction func getTicket(_ sender: Any) {
         
-        guard let url = URL(string: event["url"] as! String) else {
+        guard let url = URL(string: event["getTicket"] as! String) else {
              return
          }
         if UIApplication.shared.canOpenURL(url) {
@@ -50,6 +50,12 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let imgOneUrl = URL(string: event["posterOneURL"] as! String)
+        lineUpImage1.af.setImage(withURL: imgOneUrl!)
+        
+        let imgTwoUrl = URL(string: event["posterTwoURL"] as! String)
+        lineUpImage2.af.setImage(withURL: imgTwoUrl!)
+        
         eventNameLabel.text = event["Name"] as? String
         eventNameLabel.numberOfLines = 0
         timeLabel.text = event["Date"] as? String
@@ -62,7 +68,7 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         myRefreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
         self.tableView.refreshControl = myRefreshControl
         
-        commentBar.inputTextView.placeholder = "Add a comment..."
+        commentBar.inputTextView.placeholder = "Click here to add a comment..."
         commentBar.delegate = self
         tableView.keyboardDismissMode = .interactive
         
@@ -99,6 +105,8 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell")as! CommentCell
             let commentText = comments[indexPath.row-1]["text"] as? String
             cell.commentLabel.text = commentText
+            let author = comments[indexPath.row-1]["author"] as! PFUser
+            cell.userNameLabel.text = author["username"] as? String
 
             return cell
         }
