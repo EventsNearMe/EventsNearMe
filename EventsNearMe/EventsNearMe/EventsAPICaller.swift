@@ -87,6 +87,9 @@ class EventsAPICaller{
                             let localDate = start["localDate"] as! String
                             pfEvent["Date"] = localDate
                             
+                            let localTime = start["localTime"] as! String
+                            pfEvent["Time"] = localTime
+                            
                             let embedded = event["_embedded"] as! [String:Any]
                             let venueInfo = embedded["venues"] as! [[String:Any]]
                             let venueName = venueInfo[0]["name"] as! String
