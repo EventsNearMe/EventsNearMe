@@ -18,7 +18,8 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var venueLabel: UILabel!
     @IBOutlet weak var genreLabel: UILabel!
-
+    @IBOutlet weak var eventTime: UILabel!
+    
     @IBAction func getTicket(_ sender: Any) {
         
         guard let url = URL(string: event["getTicket"] as! String) else {
@@ -66,6 +67,7 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         timeLabel.text = event["Date"] as? String
         venueLabel.text = event["venueName"] as? String
         genreLabel.text = event["genre"] as? String
+        eventTime.text = event["Time"] as? String
         
         getEventComments()
 
