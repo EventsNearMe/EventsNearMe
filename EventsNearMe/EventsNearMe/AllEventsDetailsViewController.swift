@@ -17,6 +17,8 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var lineUpImage2: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var venueLabel: UILabel!
+    @IBOutlet weak var genreLabel: UILabel!
+
     @IBAction func getTicket(_ sender: Any) {
         
         guard let url = URL(string: event["getTicket"] as! String) else {
@@ -44,7 +46,7 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         let imgOneUrl = URL(string: event["posterOneURL"] as! String)
         lineUpImage1.af.setImage(withURL: imgOneUrl!)
@@ -63,6 +65,7 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         eventNameLabel.numberOfLines = 0
         timeLabel.text = event["Date"] as? String
         venueLabel.text = event["venueName"] as? String
+        genreLabel.text = event["genre"] as? String
         
         getEventComments()
 

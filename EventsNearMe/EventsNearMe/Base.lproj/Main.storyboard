@@ -333,28 +333,39 @@
                                 <rect key="frame" x="20" y="546" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jfB-qW-eva">
-                                <rect key="frame" x="20" y="283" width="374" height="34"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jfB-qW-eva">
+                                <rect key="frame" x="20" y="288" width="51.5" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tNd-ve-SYy">
+                                <rect key="frame" x="20" y="315" width="37.5" height="18"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="H3c-G4-bnE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="tNd-ve-SYy" firstAttribute="top" secondItem="jfB-qW-eva" secondAttribute="bottom" constant="3" id="5HX-4P-nYG"/>
                             <constraint firstItem="mR7-88-ztw" firstAttribute="leading" secondItem="H3c-G4-bnE" secondAttribute="leading" constant="20" id="7B1-em-hNC"/>
                             <constraint firstItem="CJj-Jy-W6H" firstAttribute="width" secondItem="LKW-Ya-mwx" secondAttribute="width" multiplier="0.45" id="7IX-fx-zvd"/>
                             <constraint firstItem="mR7-88-ztw" firstAttribute="top" secondItem="H3c-G4-bnE" secondAttribute="top" id="H3E-3y-dDX"/>
+                            <constraint firstItem="jfB-qW-eva" firstAttribute="top" secondItem="mR7-88-ztw" secondAttribute="bottom" constant="20" id="LK1-6b-LwB"/>
+                            <constraint firstItem="tNd-ve-SYy" firstAttribute="leading" secondItem="H3c-G4-bnE" secondAttribute="leading" constant="20" id="gJU-F2-ILJ"/>
                             <constraint firstItem="CJj-Jy-W6H" firstAttribute="top" secondItem="H3c-G4-bnE" secondAttribute="top" id="hIU-ff-1cI"/>
                             <constraint firstItem="H3c-G4-bnE" firstAttribute="trailing" secondItem="CJj-Jy-W6H" secondAttribute="trailing" constant="20" id="jiB-Lo-eaK"/>
+                            <constraint firstItem="jfB-qW-eva" firstAttribute="leading" secondItem="H3c-G4-bnE" secondAttribute="leading" constant="20" id="lqE-2X-YeW"/>
                             <constraint firstItem="CJj-Jy-W6H" firstAttribute="leading" secondItem="mR7-88-ztw" secondAttribute="trailing" id="yq6-D0-Way"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="U6l-Cy-K6B"/>
                     <connections>
                         <outlet property="eventNameLabel" destination="jfB-qW-eva" id="eyI-vI-omy"/>
+                        <outlet property="genreLabel" destination="tNd-ve-SYy" id="XYG-eR-ATs"/>
                         <outlet property="lineUpImage1" destination="mR7-88-ztw" id="sHh-XI-MOV"/>
                         <outlet property="lineUpImage2" destination="CJj-Jy-W6H" id="tgi-zD-Mql"/>
                         <outlet property="tableView" destination="HlJ-06-xVo" id="BqB-2D-bNX"/>
@@ -440,17 +451,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wei" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vk2-yD-rmr">
-
                                                     <rect key="frame" x="20" y="10" width="28.5" height="21.5"/>
-
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Will be attending!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cf0-wa-UeC">
-
-                                                    <rect key="frame" x="49" y="10" width="355" height="21.5"/>
-
+                                                    <rect key="frame" x="58.5" y="10" width="345.5" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -747,6 +754,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
