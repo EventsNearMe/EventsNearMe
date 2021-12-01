@@ -71,7 +71,11 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             guard let events = events else{
                 return
             }
+            
             let query = PFQuery(className: "Event")
+            let today = Date()
+            let nyToday = Calendar.current.date(byAdding: .hour, value: -5, to: today)!
+            query.whereKey("dbDate", greaterThanOrEqualTo: nyToday);
             query.findObjectsInBackground{(events, error) in
                 if events != nil{
                     self.events = events!
@@ -129,8 +133,6 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalendarViewCell", for: indexPath) as! CalendarViewCell
         let day = days[indexPath.row]
-        print (day.date)
-        print (day.isWithinDisplayedMonth)
         cell.dateLabel.text = day.number
         if day.isWithinDisplayedMonth{
             cell.dateLabel.textColor = .black

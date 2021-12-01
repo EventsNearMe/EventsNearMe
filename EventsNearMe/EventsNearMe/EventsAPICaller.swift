@@ -90,6 +90,15 @@ class EventsAPICaller{
                             let localTime = start["localTime"] as! String
                             pfEvent["Time"] = localTime
                             
+                            let dateTime = String(localDate+" "+localTime)
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+                            let dbDate = dateFormatter.date(from: dateTime)
+                            pfEvent["dbDate"] = dbDate
+                            print(dateTime)
+                            print(dbDate)
+                            
+                            
                             let embedded = event["_embedded"] as! [String:Any]
                             let venueInfo = embedded["venues"] as! [[String:Any]]
                             let venueName = venueInfo[0]["name"] as! String
