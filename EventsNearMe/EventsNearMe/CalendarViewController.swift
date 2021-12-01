@@ -129,7 +129,14 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalendarViewCell", for: indexPath) as! CalendarViewCell
         let day = days[indexPath.row]
+        print (day.date)
+        print (day.isWithinDisplayedMonth)
         cell.dateLabel.text = day.number
+        if day.isWithinDisplayedMonth{
+            cell.dateLabel.textColor = .black
+        }else{
+            cell.dateLabel.textColor = .gray
+        }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
@@ -251,6 +258,10 @@ private extension CalendarViewController {
             isWithinDisplayedMonth: isWithinDisplayedMonth)
         }
       days += generateStartOfNextMonth(using: firstDayOfMonth)
+//        for day in days {
+//            print(day.date)
+//            print(day.isWithinDisplayedMonth)
+//        }
       return days
     }
 
