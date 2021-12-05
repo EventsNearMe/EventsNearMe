@@ -52,6 +52,7 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
                 return
             }
             let query = PFQuery(className: "Event")
+            query.order(byAscending: "Date")
             query.findObjectsInBackground{(events:[PFObject]?, error: Error?) in
                 if events != nil{
                     self.events.removeAll()
@@ -99,10 +100,9 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
             
         }else {
             cell.secondPosterView.isHidden = false
-            cell.twoPoster()
             let imgTwoUrl = URL(string: event["posterTwoURL"] as! String)
             cell.secondPosterView.af.setImage(withURL: imgTwoUrl!)
-            
+            cell.twoPoster()
         }
         return cell
     }
