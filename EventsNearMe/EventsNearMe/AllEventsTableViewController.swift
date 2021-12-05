@@ -24,6 +24,8 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
     
     var events = [PFObject]()
     var eventsDate = [String:[PFObject]]()
+    let myRefreshControl = UIRefreshControl()
+    var oneImageCells = [IndexPath]()
                                                                                                            
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +33,17 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
         tableView.dataSource = self
         tableView.delegate = self
         
+        
+        tableView.refreshControl = myRefreshControl
+        tableView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        
         getInitialEvents(StateCode: "NY")
 
+    }
+    
+    @objc func didPullToRefresh() {
+        //refetch the data
+        getInitialEvents(StateCode: "NY")
     }
     
     func getInitialEvents(StateCode: String){
@@ -41,25 +52,70 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
                 return
             }
             let query = PFQuery(className: "Event")
-            query.findObjectsInBackground{(events, error) in
+            query.findObjectsInBackground{(events:[PFObject]?, error: Error?) in
                 if events != nil{
+                    self.events.removeAll()
                     self.events = events!
                     self.tableView.reloadData()
+                    self.tableView.refreshControl?.endRefreshing()
+                
+                    
+                    
                 }
                 else{
                     print("unable to load events from bac4App")
+                    //return
+                    
                 }
+                
+                
+
             }
+        //
         }
     }
 
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventCell
-        
+//
         let event = events[indexPath.row]
+        cell.eventLabel.text = event["Name"] as? String
+        cell.datetimeLabel.text = event["Date"] as? String
+        cell.locationLabel.text = event["venueName"] as? String
+        //sortEvent()
+        
+        let imgOneUrl = URL(string: event["posterOneURL"] as! String)
+        cell.posterView.af.setImage(withURL: imgOneUrl!)
+        var constraint = NSLayoutConstraint()
+        
+        if event["category"] as! String == "Sports" {
+//            let imgOneUrl = URL(string: event["posterOneURL"] as! String)
+//            cell.posterView.af.setImage(withURL: imgOneUrl!)
+            let imgTwoUrl = URL(string: event["posterTwoURL"] as! String)
+            cell.secondPosterView.af.setImage(withURL: imgTwoUrl!)
+            constraint = NSLayoutConstraint(item: cell.posterView!, attribute: NSLayoutConstraint.Attribute.right, relatedBy: NSLayoutConstraint.Relation.equal, toItem: cell.secondPosterView, attribute: NSLayoutConstraint.Attribute.left, multiplier: 1, constant: 0)
+            cell.posterView.isHidden = false
+            cell.secondPosterView.isHidden = false
+        }else {
+            
+            constraint = NSLayoutConstraint(item: cell.posterView!, attribute: NSLayoutConstraint.Attribute.right, relatedBy: NSLayoutConstraint.Relation.equal, toItem: cell.secondPosterView, attribute: NSLayoutConstraint.Attribute.right, multiplier: 1, constant: 0)
+            cell.secondPosterView.isHidden = true;
+            cell.posterView.translatesAutoresizingMaskIntoConstraints = false
+
+            
+        }
+        constraint.isActive = true
+        
+
+        
+        
+        
 
         return cell
     }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.count

@@ -14,7 +14,6 @@ class EventCell: UITableViewCell {
     @IBOutlet weak var eventLabel: UILabel!
     @IBOutlet weak var datetimeLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var stateLabel: UILabel!
     
     
    // var favorited: Bool = false

@@ -65,7 +65,7 @@ class EventsAPICaller{
                     dbEvents = events!
                     //convert events from query into an Array
                     var eventArr = [String]()
-                    print("dbEvents.size = \(dbEvents.count)")
+                    //print("dbEvents.size = \(dbEvents.count)")
                     for event in dbEvents{
                         eventArr.append(event["eventId"] as! String)
                     }
@@ -129,11 +129,19 @@ class EventsAPICaller{
                             
                         }
                     }
+                    
                 }
                 else{
                     print("error \(String(describing: error?.localizedDescription))")
                 }
+                
+                
             }
+            //query.order(byAscending: "dates")
+            //query.findObjects()
+            
         }
+        
     }
+    
 }
