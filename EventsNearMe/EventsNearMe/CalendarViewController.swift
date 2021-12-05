@@ -75,12 +75,16 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             let query = PFQuery(className: "Event")
             let today = Date()
             let nyToday = Calendar.current.date(byAdding: .hour, value: -5, to: today)!
-            query.whereKey("dbDate", greaterThanOrEqualTo: nyToday);
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "YYYY-MM-dd"
+            let date = dateFormatter.string(from: nyToday)
+            query.whereKey("Date", greaterThanOrEqualTo: date);
             query.findObjectsInBackground{(events, error) in
                 if events != nil{
                     self.events = events!
                     self.idEventsByDate()
                     self.collectionView.reloadData()
+                    print(self.events)
                 }
                 else{
                     print("unable to load events from bac4App")
