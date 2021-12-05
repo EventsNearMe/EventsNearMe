@@ -17,8 +17,12 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
     
     @IBOutlet weak var eventNameLabel: UILabel!
     @IBOutlet weak var venueLabel: UILabel!
+    @IBOutlet weak var genreLabel: UILabel!
+    
+    @IBOutlet weak var dateLabel: UILabel!
     
     @IBOutlet weak var timeLabel: UILabel!
+    
     @IBOutlet weak var commentsTableView: UITableView!
     @IBAction func getTicket(_ sender: Any) {
         guard let url = URL(string: event["getTicket"] as! String) else {
@@ -64,7 +68,10 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
         
         eventNameLabel.text = event["Name"] as? String
         eventNameLabel.numberOfLines = 0
-        timeLabel.text = event["Date"] as? String
+        genreLabel.text = event["genre"] as? String
+        dateLabel.text = event["Date"] as? String
+        
+        timeLabel.text = event["Time"] as? String
         venueLabel.text = event["venueName"] as? String
         
         commentsTableView.delegate = self
@@ -109,7 +116,7 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = commentsTableView.dequeueReusableCell(withIdentifier: "AddCommentCell")!
-            cell.textLabel?.text = String("Add Comment for this event...")
+            cell.textLabel?.text = String("Click here to add a comment...")
             return cell
         }else{
             let cell = commentsTableView.dequeueReusableCell(withIdentifier: "CalendarDetailCommentCell")as! CalendarDetailCommentCell
@@ -125,10 +132,13 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showsCommentBar = true
-        becomeFirstResponder()
-        commentBar.inputTextView.becomeFirstResponder()
-        self.view.frame.origin.y -= 100
+        if indexPath.row == 0{
+            showsCommentBar = true
+            becomeFirstResponder()
+            commentBar.inputTextView.becomeFirstResponder()
+            self.view.frame.origin.y -= 110
+        }
+        
     }
     @objc func onRefresh() {
         getEventComments()
@@ -156,14 +166,14 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
         event.add(comment, forKey: "comments")
         event.saveInBackground{(success, error) in
             if success{
-                print("comment saved")
+                self.getEventComments()
+                self.commentsTableView.reloadData()
             }
             else{
                 print("error saving comment")
             }
         }
-        getEventComments()
-        commentsTableView.reloadData()
+
                 
         // Clear and dismiss the input bar
         commentBar.inputTextView.text = nil

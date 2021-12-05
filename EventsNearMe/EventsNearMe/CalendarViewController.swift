@@ -71,12 +71,20 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             guard let events = events else{
                 return
             }
+            
             let query = PFQuery(className: "Event")
+            let today = Date()
+            let nyToday = Calendar.current.date(byAdding: .hour, value: -5, to: today)!
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "YYYY-MM-dd"
+            let date = dateFormatter.string(from: nyToday)
+            query.whereKey("Date", greaterThanOrEqualTo: date);
             query.findObjectsInBackground{(events, error) in
                 if events != nil{
                     self.events = events!
                     self.idEventsByDate()
                     self.collectionView.reloadData()
+                    print(self.events)
                 }
                 else{
                     print("unable to load events from bac4App")
@@ -130,6 +138,11 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalendarViewCell", for: indexPath) as! CalendarViewCell
         let day = days[indexPath.row]
         cell.dateLabel.text = day.number
+        if day.isWithinDisplayedMonth{
+            cell.dateLabel.textColor = .black
+        }else{
+            cell.dateLabel.textColor = .gray
+        }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
@@ -182,7 +195,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
                     return menu
                 }
                 var demoMenu: UIMenu {
-                    return UIMenu(title: "My menu", image: nil, identifier: nil, options: [], children: menuItems)
+                    return UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
                 }
                 cell.etcButton.menu = demoMenu
                 cell.etcButton.showsMenuAsPrimaryAction = true
@@ -251,6 +264,10 @@ private extension CalendarViewController {
             isWithinDisplayedMonth: isWithinDisplayedMonth)
         }
       days += generateStartOfNextMonth(using: firstDayOfMonth)
+//        for day in days {
+//            print(day.date)
+//            print(day.isWithinDisplayedMonth)
+//        }
       return days
     }
 
