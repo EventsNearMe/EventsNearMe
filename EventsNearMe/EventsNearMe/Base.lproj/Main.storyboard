@@ -130,8 +130,8 @@
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rS-1b-8b9">
-                                                    <rect key="frame" x="172" y="79" width="211" height="36"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rS-1b-8b9">
+                                                    <rect key="frame" x="172" y="79" width="181" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="211" id="A5j-vU-cwH"/>
                                                         <constraint firstAttribute="height" constant="36" id="Gla-dM-hgs"/>
@@ -154,13 +154,27 @@
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLd-Zn-ajM" userLabel="FavButton">
+                                                    <rect key="frame" x="379" y="85" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="2xn-Py-tDz"/>
+                                                        <constraint firstAttribute="height" constant="30" id="XCU-RS-vG5"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="favor-icon"/>
+                                                    <connections>
+                                                        <action selector="favoriteEvent:" destination="o1W-Cx-nWF" eventType="touchUpInside" id="JmF-Gr-MVB"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="QLd-Zn-ajM" secondAttribute="bottom" constant="15" id="5GG-9m-GR0"/>
                                                 <constraint firstItem="6rS-1b-8b9" firstAttribute="leading" secondItem="F1R-pf-JXF" secondAttribute="trailing" constant="8" symbolic="YES" id="A1Z-4Y-YHO"/>
                                                 <constraint firstItem="97c-7q-v2G" firstAttribute="leading" secondItem="6rS-1b-8b9" secondAttribute="leading" id="Axj-bf-MdX"/>
                                                 <constraint firstItem="6rS-1b-8b9" firstAttribute="bottom" secondItem="Edm-iv-AHz" secondAttribute="bottom" constant="-4" id="E6d-uy-CK2"/>
                                                 <constraint firstItem="Edm-iv-AHz" firstAttribute="leading" secondItem="3ra-au-a98" secondAttribute="leading" id="EWc-dt-rpQ"/>
                                                 <constraint firstItem="F1R-pf-JXF" firstAttribute="leading" secondItem="3ra-au-a98" secondAttribute="trailing" constant="-332" id="Gcl-S4-fQ9"/>
+                                                <constraint firstAttribute="trailing" secondItem="QLd-Zn-ajM" secondAttribute="trailing" constant="5" id="HhS-vA-zlP"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="97c-7q-v2G" secondAttribute="trailing" constant="20" symbolic="YES" id="LUr-gm-JyB"/>
                                                 <constraint firstItem="97c-7q-v2G" firstAttribute="top" secondItem="3ra-au-a98" secondAttribute="topMargin" id="bdb-re-OEK"/>
                                                 <constraint firstItem="DbY-Sw-kGh" firstAttribute="leading" secondItem="F1R-pf-JXF" secondAttribute="trailing" constant="8" id="fAU-OC-IXT"/>
@@ -176,6 +190,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
+                                            <outlet property="FavButton" destination="QLd-Zn-ajM" id="ArF-rk-alk"/>
                                             <outlet property="datetimeLabel" destination="97c-7q-v2G" id="Eej-8e-968"/>
                                             <outlet property="eventLabel" destination="DbY-Sw-kGh" id="JsR-13-bLa"/>
                                             <outlet property="locationLabel" destination="6rS-1b-8b9" id="kvO-Bb-m22"/>
@@ -796,6 +811,7 @@
         <image name="Image" width="225" height="225"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="favor-icon" width="30" height="30"/>
         <image name="message.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
