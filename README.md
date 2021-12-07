@@ -168,6 +168,6 @@ Event
 - [x] User can view comments on a post  
 - [x] User can add a new comment
 
-### Walkthrough GIF - Milestone 12
+### Walkthrough GIF - Milestone 13
 
 <img src="ezgif.com-gif-maker4.gif" width=250><br>
