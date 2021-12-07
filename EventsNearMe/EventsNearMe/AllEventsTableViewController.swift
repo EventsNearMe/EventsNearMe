@@ -25,7 +25,7 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
     var events = [PFObject]()
     let myRefreshControl = UIRefreshControl()
     var numEvents: Int!
-    var favorites = [PFObject:[PFObject]]()
+    //var favorites = [PFObject:[PFObject]]()
     
                                                                                                            
     override func viewDidLoad() {
@@ -60,11 +60,13 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
             let date = dateFormatter.string(from: nyToday)
             query.whereKey("Date", greaterThanOrEqualTo: date)
             query.order(byAscending: "Date")
+            query.includeKeys(["favorite", "favorite.author"])
             query.findObjectsInBackground{(events,error) in
                 if events != nil{
                     self.events.removeAll()
                     self.events = events!
-                    self.findFave()
+                    self.tableView.reloadData()
+                    self.tableView.refreshControl?.endRefreshing()
                 }
                 else{
                     print("unable to load events from bac4App")
@@ -73,27 +75,35 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
             }
         }
     }
-    func findFave(){
-        let query = PFQuery(className: "Favorited")
-        query.whereKey("author", equalTo: PFUser.current()!)
-        query.findObjectsInBackground{(favorites, error) in
-            if favorites != nil{
-                for favorite in favorites! {
-                    self.favorites[favorite["event"] as! PFObject] = [PFObject]()
-                    self.favorites[favorite["event"] as! PFObject]?.append(favorite as PFObject)
-                }
-                self.tableView.reloadData()
-                print("favor table reloaded")
-                //print(self.favorites)
-                for fav in self.favorites{
-                    print("favor \(fav.key)")
-                }
-                self.tableView.refreshControl?.endRefreshing()
-            }else{
-                print("error while getting favorites")
-            }
-        }
-    }
+//    func findFave(){
+//        let query = PFQuery(className: "Favorited")
+//        query.whereKey("author", equalTo: PFUser.current()!)
+//        query.includeKeys(["author","event"])
+//        query.findObjectsInBackground{(favorites, error) in
+//            if favorites != nil{
+//                for favorite in favorites! {
+//                    let author = favorite["author"] as! PFUser
+//                    if author == PFUser.current(){
+//                        //print("fav: \(author)")
+//                    }
+//                    let ev = favorite["event"] as! PFObject
+//                    if self.favorites[favorite["event"] as! PFObject] == nil {
+//                        self.favorites[favorite["event"] as! PFObject] = [PFObject]()
+//                    }
+//                    self.favorites[favorite["event"] as! PFObject]?.append(favorite as PFObject)
+//                }
+//                self.tableView.reloadData()
+//                print("favor table reloaded")
+////                //print(self.favorites)
+////                for fav in self.favorites{
+////                    print("favor \(fav.key)")
+////                }
+//                self.tableView.refreshControl?.endRefreshing()
+//            }else{
+//                print("error while getting favorites")
+//            }
+//        }
+//    }
 
     
     
@@ -125,26 +135,22 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
             cell.secondPosterView.af.setImage(withURL: imgTwoUrl!)
             cell.twoPoster()
         }
-        //print(self.favorites)
-        print("favor :\(self.favorites[event])")
-        var count:Int!
-        count = self.favorites[event]?.count
-        //print("favor \(self.favorites[event].key)")
-        if  count != nil{
-            cell.eventLabel.text = String(count)
-            cell.favorited = true
-            cell.event = self.favorites[event]?[0]
-            cell.FavButton.setImage(cell.favoriteImage, for: .normal)
-            
+        cell.event = nil
+        cell.favorited = false
+        cell.FavButton.setImage(cell.unfavoriteImage, for: .normal)
+        if event["favorite"] != nil{
+            for fav in event["favorite"] as! [PFObject]{
+                let author = fav["author"] as! PFUser
+                if author.username == PFUser.current()?.username{
+                    cell.favorited = true
+                    cell.event = fav
+                    cell.FavButton.setImage(cell.favoriteImage, for: .normal)
+                    break
+                }
+            }
         }
-        else{
-            cell.event = nil
-            cell.FavButton.setImage(cell.unfavoriteImage, for: .normal)
-            cell.favorited = false
-        }
-             
+
         cell.detectFav = {
-            
             if cell.favorited == true {
                 let favorite = PFObject(className: "Favorited")
                 favorite["event"] = event
@@ -154,7 +160,20 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
                 event.add(favorite, forKey: "favorite")
                 event.saveInBackground { success, error in
                     if success{
+                        let query = PFQuery(className: "Favorited")
+                        query.whereKey("event", equalTo: event)
+                        query.whereKey("author", equalTo: PFUser.current()!)
+                        query.findObjectsInBackground{(favorites,error) in
+                            if favorites != nil{
+                                cell.event = favorites?[0]
+                            }
+                            else{
+                                print("unable to load favortie from bac4App")
+                                
+                            }
+                        }
                         cell.FavButton.setImage(cell.favoriteImage, for: .normal)
+                        
                         print("favorite saved")
                     }else{
                         print("error saving favorite")
@@ -162,7 +181,7 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
                 }
                             
                 }else {
-     
+                    cell.event.deleteInBackground()
                 }
                 
            // let query = PFQuery(className: "Favorited")
