@@ -40,6 +40,7 @@ class EventCell: UITableViewCell{
     
     public func flipFavoriteState() {
         favorited = !favorited!
+        
         animate()
     }
 
@@ -48,13 +49,13 @@ class EventCell: UITableViewCell{
     
     private func animate() {
         UIView.animate(withDuration: 0.1, animations: {
-            var newImage = UIImage()
-            if self.favorited! {
-                newImage = self.favoriteImage!
-            }else {
-                newImage = self.unfavoriteImage!
-            }
-//            self.favorited ? self.favoriteImage : self.unfavoriteImage
+//            var newImage = UIImage()
+//            if self.favorited! {
+//                newImage = self.favoriteImage!
+//            }else {
+//                newImage = self.unfavoriteImage!
+//            }
+            let newImage = self.favorited! ? self.favoriteImage : self.unfavoriteImage
             self.FavButton.transform = self.transform.scaledBy(x: 0.8, y: 0.8)
             self.FavButton.setImage(newImage, for: .normal)
         }, completion: { _ in

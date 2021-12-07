@@ -120,7 +120,7 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
             if cell.favorited == true {
                     query.findObjectsInBackground { favorites, error in
                         if favorites != nil {
-                            print("Already saved")
+                            print("favorite true Already saved")
                         }else {
                             let favorite = PFObject(className: "Favorited")
                             favorite["event"] = event
@@ -138,15 +138,14 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
                             
                         }
                         }
+                }else {
+                    query.findObjectsInBackground { favorites, error in
+                        for favorite in favorites! {
+                            print("delete")
+                            favorite.deleteEventually()
+                        }
+                        }
                 }
-//                else {
-//                    query.findObjectsInBackground(block: {(favorites, error) in{
-//                        for favorite in favorites {
-//                            favorite.deleteEventually()
-//                        }
-//                        }
-//                    }
-//                }
                 
            // let query = PFQuery(className: "Favorited")
 //            query.whereKey("event", equalTo: event)
@@ -161,8 +160,6 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
 //                }
 //            }
         }
-            
-        
         var favorite: Bool?
         cell.getFavBool = {
             let query = PFQuery(className: "Favorited")
@@ -170,11 +167,11 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
             query.whereKey("author", equalTo: PFUser.current()!)
             query.findObjectsInBackground {(favorites, error) in
                 if favorites != nil {
-                    //print("ddddd")
+                    print("ddddd")
                     favorite = true
                     cell.FavButton.setImage(cell.favoriteImage, for: .normal)
                 }else {
-                    //print("sssss")
+                    print("sssss")
                     favorite = false
                     cell.FavButton.setImage(cell.unfavoriteImage, for: .normal)
                 }
