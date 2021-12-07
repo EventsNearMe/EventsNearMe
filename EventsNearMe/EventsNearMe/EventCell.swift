@@ -6,27 +6,70 @@
 //
 
 import UIKit
+import Parse
+import Alamofire
+import SwiftUI
 
-class EventCell: UITableViewCell {
-
+class EventCell: UITableViewCell{
+    
+    
+    
+    var favorited: Bool?
+    var event: PFObject!
+    
     @IBOutlet weak var posterView: UIImageView!
     @IBOutlet weak var secondPosterView: UIImageView!
     @IBOutlet weak var eventLabel: UILabel!
     @IBOutlet weak var datetimeLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var FavButton: UIButton!
     
+    var detectFav : (() -> Void)? = nil
+   // var getFavBool : (() -> Bool)? = nil
     
-   // var favorited: Bool = false
-    
-//    func setFavorite(_ isFavorited: Bool) {
-//        favorited = isFavorited
-//        if(favorited) {
-//            favButton.setImage(UIImage(named: "favor-icon-red"), for: UIControl.State.normal)
-//        }else {
-//            favButton.setImage(UIImage(named: "favor-icon"), for: UIControl.State.normal)
+    @IBAction func favoriteEvent(_ sender: UIButton) {
+//        if let getFavBoolAction = self.detectFav {
+//            favorited = getFavBoolAction()
 //        }
-//
-//    }
+        flipFavoriteState()
+        if let favoriteAction = self.detectFav {
+            favoriteAction()
+        }
+        
+        
+    }
+    
+    public func flipFavoriteState() {
+        favorited = !favorited!
+        
+        animate()
+    }
+
+    let unfavoriteImage = UIImage(named: "favor-icon")
+    let favoriteImage = UIImage(named: "favor-icon-red")
+    
+    private func animate() {
+        UIView.animate(withDuration: 0.1, animations: {
+//            var newImage = UIImage()
+//            if self.favorited! {
+//                newImage = self.favoriteImage!
+//            }else {
+//                newImage = self.unfavoriteImage!
+//            }
+            let newImage = self.favorited! ? self.favoriteImage : self.unfavoriteImage
+            self.FavButton.transform = self.transform.scaledBy(x: 0.8, y: 0.8)
+            self.FavButton.setImage(newImage, for: .normal)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.1, animations: {
+                self.FavButton.transform = CGAffineTransform.identity
+            })
+        })
+    }
+    
+    
+    
+    
+    
     var twoPosterConstraint = NSLayoutConstraint()
     var onePosterConstraint = NSLayoutConstraint()
     var onePosterConstraint2 = NSLayoutConstraint()
@@ -64,5 +107,9 @@ class EventCell: UITableViewCell {
         onePosterConstraint3.isActive = false
         onePosterConstraint4.isActive = false
     }
+    
+    
+    
+    
 
 }

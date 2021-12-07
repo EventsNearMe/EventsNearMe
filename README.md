@@ -159,3 +159,15 @@ Event
 ### Walkthrough GIF - Milestone 12
 
 <img src="ezgif.com-gif-maker3.gif" width=250><br>
+
+### Milestone 13 build progress
+
+### User Stories
+- [x] User can reload new events
+- [x] User can favorite a tweet
+- [x] User can view comments on a post  
+- [x] User can add a new comment
+
+### Walkthrough GIF - Milestone 12
+
+<img src="ezgif.com-gif-maker4.gif" width=250><br>

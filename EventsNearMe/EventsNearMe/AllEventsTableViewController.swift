@@ -23,9 +23,10 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     var events = [PFObject]()
-    var eventsDate = [String:[PFObject]]()
     let myRefreshControl = UIRefreshControl()
     var numEvents: Int!
+    var favorites = [PFObject:[PFObject]]()
+    
                                                                                                            
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,16 +53,18 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
                 return
             }
             let query = PFQuery(className: "Event")
+            let today = Date()
+            let nyToday = Calendar.current.date(byAdding: .hour, value: -5, to: today)!
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "YYYY-MM-dd"
+            let date = dateFormatter.string(from: nyToday)
+            query.whereKey("Date", greaterThanOrEqualTo: date)
             query.order(byAscending: "Date")
-            query.findObjectsInBackground{(events:[PFObject]?, error: Error?) in
+            query.findObjectsInBackground{(events,error) in
                 if events != nil{
                     self.events.removeAll()
                     self.events = events!
-                    self.tableView.reloadData()
-                    self.tableView.refreshControl?.endRefreshing()
-                
-                    
-                    
+                    self.findFave()
                 }
                 else{
                     print("unable to load events from bac4App")
@@ -70,6 +73,29 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
             }
         }
     }
+    func findFave(){
+        let query = PFQuery(className: "Favorited")
+        query.whereKey("author", equalTo: PFUser.current()!)
+        query.findObjectsInBackground{(favorites, error) in
+            if favorites != nil{
+                for favorite in favorites! {
+                    self.favorites[favorite["event"] as! PFObject] = [PFObject]()
+                    self.favorites[favorite["event"] as! PFObject]?.append(favorite as PFObject)
+                }
+                self.tableView.reloadData()
+                print("favor table reloaded")
+                //print(self.favorites)
+                for fav in self.favorites{
+                    print("favor \(fav.key)")
+                }
+                self.tableView.refreshControl?.endRefreshing()
+            }else{
+                print("error while getting favorites")
+            }
+        }
+    }
+
+    
     
     
     
@@ -78,25 +104,20 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventCell
         
-//
         let event = events[indexPath.row]
+        
         cell.eventLabel.text = event["Name"] as? String
         cell.datetimeLabel.text = event["Date"] as? String
         cell.locationLabel.text = event["venueName"] as? String
-        //sortEvent()
         
         let imgOneUrl = URL(string: event["posterOneURL"] as! String)
         cell.posterView.af.setImage(withURL: imgOneUrl!)
         cell.posterView.translatesAutoresizingMaskIntoConstraints = false
         
         
-        
         if event["category"] as! String != "Sports" {
             cell.secondPosterView.isHidden = true;
             cell.onePoster()
-            
-      
-                  
             
         }else {
             cell.secondPosterView.isHidden = false
@@ -104,6 +125,63 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
             cell.secondPosterView.af.setImage(withURL: imgTwoUrl!)
             cell.twoPoster()
         }
+        //print(self.favorites)
+        print("favor :\(self.favorites[event])")
+        var count:Int!
+        count = self.favorites[event]?.count
+        //print("favor \(self.favorites[event].key)")
+        if  count != nil{
+            cell.eventLabel.text = String(count)
+            cell.favorited = true
+            cell.event = self.favorites[event]?[0]
+            cell.FavButton.setImage(cell.favoriteImage, for: .normal)
+            
+        }
+        else{
+            cell.event = nil
+            cell.FavButton.setImage(cell.unfavoriteImage, for: .normal)
+            cell.favorited = false
+        }
+             
+        cell.detectFav = {
+            
+            if cell.favorited == true {
+                let favorite = PFObject(className: "Favorited")
+                favorite["event"] = event
+                favorite["favorited"] = cell.favorited
+                favorite["author"] = PFUser.current()
+            
+                event.add(favorite, forKey: "favorite")
+                event.saveInBackground { success, error in
+                    if success{
+                        cell.FavButton.setImage(cell.favoriteImage, for: .normal)
+                        print("favorite saved")
+                    }else{
+                        print("error saving favorite")
+                    }
+                }
+                            
+                }else {
+     
+                }
+                
+           // let query = PFQuery(className: "Favorited")
+//            query.whereKey("event", equalTo: event)
+//            query.whereKey("author", equalTo: PFUser.current()!)
+//            query.findObjectsInBackground {(favorites, error) in
+//                if favorites != nil {
+//                    cell.favorited = true
+//                    cell.FavButton.setImage(cell.favoriteImage, for: .normal)
+//                }else {
+//                    cell.favorited = false
+//                    cell.FavButton.setImage(cell.unfavoriteImage, for: .normal)
+//                }
+//            }
+        }
+       
+        
+        
+        
         return cell
     }
     
@@ -112,6 +190,10 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.count
     }
+    
+    
+    
+    
 
     // MARK: - Navigation
 
@@ -133,3 +215,4 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
     }
 
 }
+

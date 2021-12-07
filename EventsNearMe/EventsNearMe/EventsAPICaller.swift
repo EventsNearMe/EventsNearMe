@@ -90,14 +90,6 @@ class EventsAPICaller{
                             let localTime = start["localTime"] as! String
                             pfEvent["Time"] = localTime
                             
-//                            let dateTime = String(localDate+" "+localTime)
-//                            let dateFormatter = DateFormatter()
-//                            dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
-//                            let dbDate = dateFormatter.date(from: dateTime)
-//                            pfEvent["dbDate"] = dbDate
-//                            print(dateTime)
-//                            print(dbDate)
-                            
                             
                             let embedded = event["_embedded"] as! [String:Any]
                             let venueInfo = embedded["venues"] as! [[String:Any]]
@@ -129,6 +121,8 @@ class EventsAPICaller{
                             pfEvent["genre"] = genre["name"] as! String
                             let subGenre = category[0]["subGenre"] as! [String:Any]
                             pfEvent["subGenre"] = subGenre["name"] as! String
+                            
+                          
                             pfEvent.saveInBackground{(success, error) in
                                 if success {
                                     print("\(event["name"]as! String) \(localDate) saved!")
@@ -149,8 +143,6 @@ class EventsAPICaller{
                 
                 
             }
-            //query.order(byAscending: "dates")
-            //query.findObjects()
             
         }
         
