@@ -11,6 +11,37 @@ import Parse
 class EventsAPICaller{
     static let client = EventsAPICaller ()
     var events = [PFObject]()
+    
+    func favoriteEvent(event: PFObject){
+        let favorite = PFObject(className: "Favorited")
+        favorite["event"] = event
+        favorite["author"] = PFUser.current()
+        event.add(favorite, forKey: "favorite")
+        event.saveInBackground { success, error in
+            if success{
+                print("favorite saved")
+            }else{
+                print("error saving favorite")
+            }
+        }
+    }
+    
+    func unfavoriteEvent(event: PFObject){
+        let query = PFQuery(className: "Favorited")
+        query.whereKey("event", equalTo: event)
+        query.whereKey("author", equalTo: PFUser.current()!)
+        query.findObjectsInBackground{(favorites,error) in
+            if favorites != nil{
+                favorites?[0].deleteInBackground()
+            }
+            else{
+                print("unable to load favortie from bac4App")
+                
+            }
+        }
+    }
+        
+    
     func getEventsByPostalCode(postalCode: Int, radius: Int, completion: @escaping ([[String:Any]]?) -> Void){
         let p = String(postalCode)
         let r = String(radius)

@@ -15,7 +15,6 @@ class EventCell: UITableViewCell{
     
     
     var favorited: Bool?
-    var event:PFObject!
     
     @IBOutlet weak var posterView: UIImageView!
     @IBOutlet weak var secondPosterView: UIImageView!
