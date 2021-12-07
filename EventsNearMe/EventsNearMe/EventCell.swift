@@ -15,6 +15,7 @@ class EventCell: UITableViewCell{
     
     
     var favorited: Bool?
+    var event: PFObject!
     
     @IBOutlet weak var posterView: UIImageView!
     @IBOutlet weak var secondPosterView: UIImageView!
@@ -24,12 +25,12 @@ class EventCell: UITableViewCell{
     @IBOutlet weak var FavButton: UIButton!
     
     var detectFav : (() -> Void)? = nil
-    var getFavBool : (() -> Bool)? = nil
+   // var getFavBool : (() -> Bool)? = nil
     
     @IBAction func favoriteEvent(_ sender: UIButton) {
-        if let getFavBoolAction = self.getFavBool {
-            favorited = getFavBoolAction()
-        }
+//        if let getFavBoolAction = self.detectFav {
+//            favorited = getFavBoolAction()
+//        }
         flipFavoriteState()
         if let favoriteAction = self.detectFav {
             favoriteAction()
