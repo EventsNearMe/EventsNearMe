@@ -19,7 +19,22 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var venueLabel: UILabel!
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var eventTime: UILabel!
+    @IBOutlet weak var favButton: UIButton!
     
+    @IBAction func favButtonClicked(_ sender: Any) {
+        favoritedEvent = !favoritedEvent
+        if favoritedEvent {
+            numFavorited += 1
+            favButton.setImage(favoriteImage, for: .normal)
+            favButton.setTitle(String(numFavorited), for: .normal)
+            EventsAPICaller.client.favoriteEvent(event: event)
+        }else {
+            numFavorited -= 1
+            favButton.setImage(unfavoriteImage, for: .normal)
+            favButton.setTitle(String(numFavorited), for: .normal)
+            EventsAPICaller.client.unfavoriteEvent(event: event)
+        }
+    }
     @IBAction func getTicket(_ sender: Any) {
         
         guard let url = URL(string: event["getTicket"] as! String) else {
@@ -36,6 +51,10 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
     var event: PFObject!
     var comments = [PFObject]()
     var numComments: Int!
+    var favoritedEvent = false
+    let unfavoriteImage = UIImage(named: "favor-icon")
+    let favoriteImage = UIImage(named: "favor-icon-red")
+    var numFavorited = 0
     
     override var inputAccessoryView: UIView? {
         return commentBar
@@ -49,8 +68,26 @@ class AllEventsDetailsViewController: UIViewController, UITableViewDelegate, UIT
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         let imgOneUrl = URL(string: event["posterOneURL"] as! String)
         lineUpImage1.af.setImage(withURL: imgOneUrl!)
+        
+        if event["favorite"] != nil{
+                    for fav in event["favorite"] as! [PFObject]{
+                        let author = fav["author"] as! PFUser
+                        if author.username == PFUser.current()?.username{
+                            favoritedEvent = true
+                            favButton.setImage(favoriteImage, for: .normal)
+                            break
+                        }
+                    }
+                    numFavorited = (event["favorite"] as! [PFObject]).count
+                    print(numFavorited)
+                }
+        favButton.setTitle(String(numFavorited), for: .normal)
         
         if event["category"] as! String != "Sports"{
             lineUpImage2.isHidden = true
