@@ -125,10 +125,12 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
             if cell.favorited == true {
                 EventsAPICaller.client.favoriteEvent(event: event)
                 cell.FavButton.setImage(cell.favoriteImage, for: .normal)
+                self.getInitialEvents(StateCode: "NY")
                             
             }else {
                 EventsAPICaller.client.unfavoriteEvent(event: event)
                 cell.FavButton.setImage(cell.unfavoriteImage, for: .normal)
+                self.getInitialEvents(StateCode: "NY")
             }
         }
         return cell
