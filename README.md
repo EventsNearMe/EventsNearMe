@@ -182,3 +182,11 @@ Event
 ### Walkthrough GIF - Milestone 13
 
 <img src="ezgif.com-gif-maker4.gif" width=250><br>
+
+### Finalized App
+
+<img src="ezgif.com-gif-maker5.gif" width=250><br>
+
+<img src="ezgif.com-gif-maker6.gif" width=250><br>
+
+<img src="ezgif.com-gif-maker7.gif" width=250><br>
