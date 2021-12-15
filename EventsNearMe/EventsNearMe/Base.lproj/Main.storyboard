@@ -285,20 +285,20 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" id="ECe-Jv-XCK" customClass="CommentCell" customModule="EventsNearMe" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ECe-Jv-XCK" id="fBq-34-C0t">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Rf-dr-4JN">
-                                                    <rect key="frame" x="20" y="11" width="45" height="21"/>
+                                                    <rect key="frame" x="20" y="11" width="45" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VyM-Ej-8HT">
-                                                    <rect key="frame" x="80" y="11" width="41.5" height="21"/>
+                                                    <rect key="frame" x="80" y="11" width="41.5" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -319,7 +319,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddCommentCell" id="O4a-Oo-qpk">
-                                        <rect key="frame" x="0.0" y="87.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="88" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O4a-Oo-qpk" id="7qs-5o-05e">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -556,12 +556,21 @@
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dP0-ME-Oze">
+                                <rect key="frame" x="321" y="304" width="80" height="44"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="favor-icon" title="300"/>
+                                <connections>
+                                    <action selector="favButtonClicked:" destination="RCA-uz-oQe" eventType="touchUpInside" id="sbP-9C-4RQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6zW-dV-5V1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="wMt-t4-VHL" firstAttribute="leading" secondItem="Xgu-sq-WtP" secondAttribute="leading" id="0Ae-gi-hUI"/>
                             <constraint firstItem="dZf-4B-0sY" firstAttribute="leading" secondItem="6zW-dV-5V1" secondAttribute="leading" constant="20" id="0nQ-YI-H7h"/>
+                            <constraint firstItem="dP0-ME-Oze" firstAttribute="top" secondItem="fkY-7y-ZQz" secondAttribute="bottom" constant="-15" id="1Fg-kW-eGe"/>
                             <constraint firstItem="329-EG-WLh" firstAttribute="leading" secondItem="6zW-dV-5V1" secondAttribute="leading" constant="20" id="4Jo-3d-WT7"/>
                             <constraint firstItem="wMt-t4-VHL" firstAttribute="trailing" secondItem="bp3-Q9-ncR" secondAttribute="trailing" id="88I-Je-46r"/>
                             <constraint firstItem="6zW-dV-5V1" firstAttribute="trailing" secondItem="fkY-7y-ZQz" secondAttribute="trailing" constant="20" id="8Qb-PL-s4B"/>
@@ -586,6 +595,7 @@
                             <constraint firstItem="8PG-5t-hSH" firstAttribute="leading" secondItem="flW-YA-tRq" secondAttribute="trailing" constant="20" id="W1c-J1-vuE"/>
                             <constraint firstItem="dBa-o2-8Kc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dZf-4B-0sY" secondAttribute="trailing" constant="17" id="XjE-DI-xGg"/>
                             <constraint firstAttribute="bottom" secondItem="bp3-Q9-ncR" secondAttribute="bottom" id="YX7-rl-yz4"/>
+                            <constraint firstItem="6zW-dV-5V1" firstAttribute="trailing" secondItem="dP0-ME-Oze" secondAttribute="trailing" constant="13" id="Zcm-jK-pZ6"/>
                             <constraint firstItem="fkY-7y-ZQz" firstAttribute="top" secondItem="TTH-w2-LGN" secondAttribute="bottom" constant="15" id="Zeh-jN-lHn"/>
                             <constraint firstItem="8PG-5t-hSH" firstAttribute="top" secondItem="mia-mC-PsI" secondAttribute="bottom" constant="11" id="bkR-WU-d6q"/>
                             <constraint firstItem="fkY-7y-ZQz" firstAttribute="leading" secondItem="6zW-dV-5V1" secondAttribute="leading" constant="20" id="bna-fz-sYu"/>
@@ -605,6 +615,7 @@
                         <outlet property="commentsTableView" destination="bp3-Q9-ncR" id="L3Q-mD-BSv"/>
                         <outlet property="dateLabel" destination="mia-mC-PsI" id="3pn-sw-qDa"/>
                         <outlet property="eventNameLabel" destination="fkY-7y-ZQz" id="ABg-mt-KAr"/>
+                        <outlet property="favButton" destination="dP0-ME-Oze" id="EVN-Mn-v85"/>
                         <outlet property="genreLabel" destination="329-EG-WLh" id="W5o-vU-4bj"/>
                         <outlet property="lineUpImage1" destination="pyB-0E-gGX" id="lfn-F5-R0c"/>
                         <outlet property="lineUpImage2" destination="TTH-w2-LGN" id="dib-VL-avE"/>

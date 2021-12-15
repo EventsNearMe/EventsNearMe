@@ -58,12 +58,14 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Do any additional setup after loading the view.
         
         setDayOfWeek()
-        
         collectionView.dataSource = self
         collectionView.delegate = self
         setCollectionViewLayout()
-        getInitialEvents(StateCode: "NY")
         
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        getInitialEvents(StateCode: "NY")
     }
 
     func getInitialEvents(StateCode: String){
@@ -79,6 +81,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             dateFormatter.dateFormat = "YYYY-MM-dd"
             let date = dateFormatter.string(from: nyToday)
             query.whereKey("Date", greaterThanOrEqualTo: date);
+            query.includeKeys(["favorite", "favorite.author"])
             query.findObjectsInBackground{(events, error) in
                 if events != nil{
                     self.events = events!
@@ -94,7 +97,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func idEventsByDate(){
-        //print("events.count\(self.events.count)")
+        self.eventsDate.removeAll()
         for event in events{
             let date = event["Date"] as! String
             

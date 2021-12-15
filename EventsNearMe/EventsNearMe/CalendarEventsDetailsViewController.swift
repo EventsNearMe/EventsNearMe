@@ -11,7 +11,23 @@ import MessageInputBar
 import Alamofire
 
 class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MessageInputBarDelegate {
-
+    
+    @IBAction func favButtonClicked(_ sender: Any) {
+        favoritedEvent = !favoritedEvent
+        if favoritedEvent{
+            numFavorited += 1
+            favButton.setImage(favoriteImage, for: .normal)
+            favButton.setTitle(String(numFavorited), for: .normal)
+            EventsAPICaller.client.favoriteEvent(event: event)
+        }
+        else{
+            numFavorited -= 1
+            favButton.setImage(unfavoriteImage, for: .normal)
+            favButton.setTitle(String(numFavorited), for: .normal)
+            EventsAPICaller.client.unfavoriteEvent(event: event)
+        }
+    }
+    @IBOutlet weak var favButton: UIButton!
     @IBOutlet weak var lineUpImage2: UIImageView!
     @IBOutlet weak var lineUpImage1: UIImageView!
     
@@ -32,7 +48,10 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
                      UIApplication.shared.open(url, options: [:], completionHandler: nil)
                  }
     }
-    
+    var favoritedEvent = false
+    let unfavoriteImage = UIImage(named: "favor-icon")
+    let favoriteImage = UIImage(named: "favor-icon-red")
+    var numFavorited = 0
     var event: PFObject!
     var comments = [PFObject]()
     var numComments: Int!
@@ -49,7 +68,23 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if event["favorite"] != nil{
+            for fav in event["favorite"] as! [PFObject]{
+                let author = fav["author"] as! PFUser
+                if author.username == PFUser.current()?.username{
+                    favoritedEvent = true
+                    favButton.setImage(favoriteImage, for: .normal)
+                    favButton.titleLabel?.text = "5"
+                    break
+                }
+            }
+            numFavorited = (event["favorite"] as! [PFObject]).count
+        }
+        favButton.setTitle(String(numFavorited), for: .normal)
+ 
         let imgOneUrl = URL(string: event["posterOneURL"] as! String)
         lineUpImage1.af.setImage(withURL: imgOneUrl!)
 
@@ -62,8 +97,6 @@ class CalendarEventsDetailsViewController: UIViewController, UITableViewDelegate
             let imgTwoUrl = URL(string: event["posterTwoURL"] as! String)
             lineUpImage2.af.setImage(withURL: imgTwoUrl!)
         }
-        
-        
         
         
         eventNameLabel.text = event["Name"] as? String
