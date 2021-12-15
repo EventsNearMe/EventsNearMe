@@ -37,8 +37,12 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
         tableView.refreshControl = myRefreshControl
         tableView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
         
-        getInitialEvents(StateCode: "NY")
+        
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getInitialEvents(StateCode: "NY")
     }
     
     @objc func didPullToRefresh() {
@@ -103,12 +107,17 @@ class AllEventsTableViewController: UIViewController, UITableViewDataSource, UIT
         cell.FavButton.setImage(cell.unfavoriteImage, for: .normal)
         if event["favorite"] != nil{
             for fav in event["favorite"] as! [PFObject]{
+                if fav["author"] != nil {
                 let author = fav["author"] as! PFUser
-                if author.username == PFUser.current()?.username{
-                    cell.favorited = true
-                    cell.FavButton.setImage(cell.favoriteImage, for: .normal)
-                    break
+                    if author.username == PFUser.current()?.username{
+                        cell.favorited = true
+                        cell.FavButton.setImage(cell.favoriteImage, for: .normal)
+                        break
+                    }
+                }else {
+                    print("fav author key is nil")
                 }
+                
             }
         }
 

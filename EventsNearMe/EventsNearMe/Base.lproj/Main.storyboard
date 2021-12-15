@@ -372,10 +372,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvE-3w-mI0">
+                                <rect key="frame" x="330" y="303" width="64" height="44"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="favor-icon" title="0"/>
+                                <connections>
+                                    <action selector="favButtonClicked:" destination="dB6-Mp-MEe" eventType="touchUpInside" id="nLg-Aj-4M5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="H3c-G4-bnE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="iye-oz-oSR" firstAttribute="top" secondItem="dvE-3w-mI0" secondAttribute="bottom" constant="21" id="0i9-kh-63f"/>
                             <constraint firstItem="tNd-ve-SYy" firstAttribute="top" secondItem="jfB-qW-eva" secondAttribute="bottom" constant="3" id="5HX-4P-nYG"/>
                             <constraint firstItem="nSB-zd-w2g" firstAttribute="top" secondItem="tNd-ve-SYy" secondAttribute="bottom" constant="35" id="6HS-8L-PWK"/>
                             <constraint firstItem="gBd-0Q-SV4" firstAttribute="top" secondItem="Tuu-9e-2dD" secondAttribute="bottom" constant="15" id="72A-dl-MvH"/>
@@ -384,6 +393,7 @@
                             <constraint firstItem="iye-oz-oSR" firstAttribute="top" secondItem="CJj-Jy-W6H" secondAttribute="bottom" constant="100" id="8cW-5R-FwG"/>
                             <constraint firstItem="Exy-Hz-J5m" firstAttribute="top" secondItem="1tw-5p-fBW" secondAttribute="bottom" constant="15" id="BDX-g0-4bO"/>
                             <constraint firstItem="mR7-88-ztw" firstAttribute="top" secondItem="H3c-G4-bnE" secondAttribute="top" id="H3E-3y-dDX"/>
+                            <constraint firstItem="H3c-G4-bnE" firstAttribute="trailing" secondItem="dvE-3w-mI0" secondAttribute="trailing" constant="20" id="JpT-u2-Of9"/>
                             <constraint firstItem="nSB-zd-w2g" firstAttribute="leading" secondItem="H3c-G4-bnE" secondAttribute="leading" constant="20" id="K9a-6p-PWa"/>
                             <constraint firstItem="jfB-qW-eva" firstAttribute="top" secondItem="mR7-88-ztw" secondAttribute="bottom" constant="20" id="LK1-6b-LwB"/>
                             <constraint firstItem="H3c-G4-bnE" firstAttribute="trailing" secondItem="iye-oz-oSR" secondAttribute="trailing" constant="20" id="Q7E-rw-hHu"/>
@@ -396,6 +406,7 @@
                             <constraint firstItem="H3c-G4-bnE" firstAttribute="trailing" secondItem="CJj-Jy-W6H" secondAttribute="trailing" constant="20" id="jiB-Lo-eaK"/>
                             <constraint firstItem="jfB-qW-eva" firstAttribute="leading" secondItem="H3c-G4-bnE" secondAttribute="leading" constant="20" id="lqE-2X-YeW"/>
                             <constraint firstItem="H3c-G4-bnE" firstAttribute="trailing" secondItem="gBd-0Q-SV4" secondAttribute="trailing" constant="20" id="nC1-1t-GtT"/>
+                            <constraint firstItem="dvE-3w-mI0" firstAttribute="leading" relation="lessThanOrEqual" secondItem="jfB-qW-eva" secondAttribute="trailing" constant="258.5" id="rqC-Dc-qeC"/>
                             <constraint firstItem="H3c-G4-bnE" firstAttribute="trailing" secondItem="Tuu-9e-2dD" secondAttribute="trailing" constant="20" id="xk3-m8-hal"/>
                             <constraint firstItem="CJj-Jy-W6H" firstAttribute="leading" secondItem="mR7-88-ztw" secondAttribute="trailing" id="yq6-D0-Way"/>
                         </constraints>
@@ -404,6 +415,7 @@
                     <connections>
                         <outlet property="eventNameLabel" destination="jfB-qW-eva" id="eyI-vI-omy"/>
                         <outlet property="eventTime" destination="Tuu-9e-2dD" id="a5u-ex-VOS"/>
+                        <outlet property="favButton" destination="dvE-3w-mI0" id="KNE-HP-THh"/>
                         <outlet property="genreLabel" destination="tNd-ve-SYy" id="XYG-eR-ATs"/>
                         <outlet property="lineUpImage1" destination="mR7-88-ztw" id="sHh-XI-MOV"/>
                         <outlet property="lineUpImage2" destination="CJj-Jy-W6H" id="tgi-zD-Mql"/>
