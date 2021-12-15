@@ -27,15 +27,17 @@ Gather all types of events from Eventbrite in the local area. Users can search f
 **Required Must-have Stories**
 
 * User can login
-* User can search for an event
-* User can like an event
+* User can create a new account
+* User can like/unlike an event
 * User can leave a comment for an event
 * User can view a feed of events
+* User can go to purchase ticket page through a button
 
 **Optional Nice-to-have Stories**
 
 * User can post events
-* User can create a new account
+* User can search for an event
+* User can view events by date in calendar view
 * User can follow event organizer
 * User can add photos to their comments
 
@@ -43,15 +45,20 @@ Gather all types of events from Eventbrite in the local area. Users can search f
 
 * login screen
    * User can login
+   * User can create a new account
 * events screen (tableView)
    * User can view a feed of events
-   * User can view how many likes for each events
-   * User can search for events
+   * User can see if they liked the event
+   * User can like/unlike an event
 * events screen (calendarView)
-   * User can view a list of events in calendar view
-* events detail screen
-   * User can like an event
-   * User can leave a comment w./w.o. photo
+   * User can view events by date in calendar view
+* event detail screen
+   * User can view more details for that event
+   * User can like/unlike event
+   * User can view how many likes for each event
+   * User can comment on that event
+   * User can see other comments on that event
+   * User can click a button to access buy tickets page
 
 ### 3. Navigation
 
@@ -85,16 +92,13 @@ Event
 
 | Property     | Type                 | Description                                                                  |
 | --------     | --------             | --------                                                                     |
-| name         | multipart-text       | Event name.                                                                  |
-| event_id     | string               | Event ID of the Attendee's Event.                                            |
-| created      | datetime             | Attendee creation date and time (i.e. when order was placed).                |
+| name         | multipart-text       | Event name                                                                  |
+| event-pictures     | image URL               | Images of the event                                            |
+| event-date      | datetime             | Date and time when event will take place                |
 | summary      | string               | (Optional) Event summary. Short summary describing the event and its purpose.|
-| start        | datetime-tz          | Event start date and time.                                                   |
-| end          | datetime-tz          | Event end date and time.                                                     |
-| status       | string               | Event status. Can be draft, live, started, ended, completed and canceled.    |
-| likesCount   | Number               | number of likes for the post                                                 |
+| favorite   | Pointer to favorite-objects                | Favorite objects that link their users and events                                |
 | user         | Pointer to User      | image author                                                                 |
-| comment      | Pointer to Comment   | comments                                                                     |
+| comment      | Pointer to Comment-objects   | Comment objects that link their users, events and text                                         |
 
 ### Networking
 
