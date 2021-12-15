@@ -97,7 +97,7 @@ Event
 | event-date      | datetime             | Date and time when event will take place                |
 | summary      | string               | (Optional) Event summary. Short summary describing the event and its purpose.|
 | favorite   | Pointer to favorite-objects                | Favorite objects that link their users and events                                |
-| user         | Pointer to User      | image author                                                                 |
+| user         | Pointer to User      | User Object                    |
 | comment      | Pointer to Comment-objects   | Comment objects that link their users, events and text                                         |
 
 ### Networking
@@ -107,16 +107,23 @@ Event
    * (Read/GET) Query all events
   
     ```
-    let query = PFQuery(className:"Event")
-    query.whereKey("user", equalTo: currentUser)
-    query.order(byDescending: "createdAt")
-    query.findObjectsInBackground { (events: [PFObject]?, error: Error?) in
-       if let error = error { 
-          print(error.localizedDescription)
-       } else if let events = events {
-          print("Successfully retrieved \(events.count) events.")
-      // TODO: Do something with events...
-       }
+    let query = PFQuery(className: "Event")
+    let today = Date()
+    let nyToday = Calendar.current.date(byAdding: .hour, value: -5, to: today)!
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "YYYY-MM-dd"
+    let date = dateFormatter.string(from: nyToday)
+    query.whereKey("Date", greaterThanOrEqualTo: date)
+    query.order(byAscending: "Date")
+    query.includeKeys(["favorite", "favorite.author"])
+    query.findObjectsInBackground{(events,error) in
+        if events != nil{
+            // TODO: Do something with events...
+        }
+        else{
+            print("unable to load events from bac4App")
+            
+        }
     }
     ```
     * (Delete) Delete existing like
