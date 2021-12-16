@@ -118,8 +118,13 @@ class EventsAPICaller{
                             let localDate = start["localDate"] as! String
                             pfEvent["Date"] = localDate
                             
-                            let localTime = start["localTime"] as! String
-                            pfEvent["Time"] = localTime
+                            
+                            if let localTime = start["localTime"] as? String {
+                                pfEvent["Time"] = localTime
+                            }else{
+                                pfEvent["Time"] = "TBD"
+                            }
+                            
                             
                             
                             let embedded = event["_embedded"] as! [String:Any]
